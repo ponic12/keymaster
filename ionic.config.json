@@ -1,0 +1,8 @@
+{
+  "name": "keymaster.employee",
+  "app_id": "539c5811",
+  "type": "ionic-angular",
+  "integrations": {
+    "cordova": {}
+  }
+}

@@ -1,0 +1,52 @@
+<ion-content>
+    <ion-header>
+        <ion-navbar color="primary">
+          <ion-title>
+            Devolucion de llave 
+          </ion-title>
+        </ion-navbar>
+    </ion-header>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-item>
+            <ion-label floating>Llave</ion-label>
+            <ion-input type="text" [(ngModel)]="qrKey" ></ion-input>    
+          </ion-item>
+        </ion-card>
+      </ion-col>
+      <button ion-button icon-left (click)="readQRKey()" style="margin-top:30px;margin-left:-80px">
+        <ion-icon name="qr-scanner" style="margin-left:5px"></ion-icon>
+      </button>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-card>
+          <ion-item>
+            <ion-label floating>Legajo</ion-label>
+            <ion-input type="text" [(ngModel)]="userInfo.legajo" ></ion-input>    
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Nombre</ion-label>
+            <ion-input type="text" [(ngModel)]="userInfo.nombre" ></ion-input>    
+          </ion-item>
+          <ion-item>
+            <ion-label floating>Apellido</ion-label>
+            <ion-input type="text" [(ngModel)]="userInfo.nombre" ></ion-input>    
+          </ion-item>          
+            <!-- <ion-avatar item-start>
+              <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-buzz.png">
+            </ion-avatar> -->
+        </ion-card>       
+      </ion-col>
+      <button ion-button icon-left (click)="readQRKey()" style="margin-top:30px;margin-left:-80px">
+        <ion-icon name="qr-scanner" style="margin-left:5px"></ion-icon>
+      </button>
+    </ion-row>
+    <button ion-button icon-left (click)="registerKey()">
+      <ion-icon name="star"></ion-icon>Devolucion
+    </button>
+  </ion-grid>
+</ion-content>

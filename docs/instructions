@@ -1,0 +1,99 @@
+nvm ls-remote
+nvm install 9.0.0
+nvm use 9.0.0
+nvm alias default 9.0.0
+
+npm install -g firebase-tools
+mkdir firebase-functions
+cd firebase-functions
+firebase --version
+firebase login --no-localhost
+login by gmail.... => authorization code:
+( 4/i83gEkbippOMRq4OemlfBADyh6gRzcVxW3UUJDk2850 )
+( 4/T7GXxsq1GggRPtxj0dfKx0JJpdypFl28ZQWhlf4Kack ) 4/11/17
+
+firebase init
+cd functions
+nano .gitignore  (node_modules)
+
+editar archivo:  index.js
+firebase deploy --only functions:xxxx
+
+
+
+////////////////////////////////////////////////
+// IONIC
+
+sudo npm install -g ionic cordova
+npm install promise-polyfill --save-exact
+sudo npm install -g ionic@latest
+ionic info
+ionic start myApp blank
+ionic serve -p $PORT -r 8081
+ionic serve -p $PORT -r 8081 -l // lab mode 
+
+ionic ssh setup
+
+ionic g page pageName 
+-- modificar ngmodule.ts para agregar referencia
+
+git push ionic master
+
+
+ionic resources
+ionic cordova platform add android 
+ionic cordova platform add browser ......... ionic run browser
+ionic cordova run android
+
+ionic cordova plugin add cordova-plugin-camera
+npm install --save @ionic-native/camera
+
+
+// IONIC CORDOVA PLUGINs
+
+npm install --save ngx-qrcode2
+ionic cordova plugin add phonegap-plugin-barcodescanner
+npm install --save @ionic-native/barcode-scanner
+
+
+////////////////////////////////////////////////
+// ANGULAR FIREBASE
+sudo npm install firebase angularfire2 --save
+
+
+
+////////////////////////////////////////////////
+// ANGULAR CLI
+
+sudo npm install -g @angular/cli
+sudo npm install --save @angular/animations@4.1.3
+sudo npm install -g angular-cli-ghpages
+
+ng new project
+cd project
+
+//server.js -> Server.prototype.checkHost function
+node_modules/webpack-dev-server/lib/Server.js (line 425): replace -> return false to true;
+
+
+// start serving angular app
+ng serve -host 0.0.0.0 -port 8080
+
+////////////////////////////////
+// Deploy in GitHub
+** Crear APP en GitHub
+git pull
+git clone https://github........git
+git remote add origin https://github.com/ponic12/pypapp.git
+git init
+git add .
+git commit -am "make it better"
+git push origin master
+
+
+/////////////////////////////////////////////////////////
+// deploy to prod folder
+ng build --prod --output-path ~/workspace/deploy/public/
+
+cd ~/workspace/deploy
+

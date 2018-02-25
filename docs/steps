@@ -1,0 +1,40 @@
+install nodejs
+sudo npm install -g ionic cordova
+sudo npm install -g ionic@latest
+ionic info
+ionic start myApp blank (sidemenu, tabs, etc...)
+ionic serve -p $PORT -r 8081 -l // lab mode
+
+Modificar config.xml (titulo)
+Modificar ionic.config.json (titulo)
+
+
+npm install @ionic-native/core --save
+
+ionic resources
+ionic cordova platform add android 
+ionic cordova platform add browser  =======> ionic cordova run browser
+ionic cordova run android --prod --release
+ionic cordova build android --release
+sudo chmod -R 777 /Applications/Android\ Studio.app
+
+
+npm install --save ngx-qrcode2
+ionic cordova plugin add phonegap-plugin-barcodescanner
+npm install --save @ionic-native/barcode-scanner
+
+ionic cordova plugin add cordova-plugin-camera
+npm install --save @ionic-native/camera
+
+ionic cordova plugin add cordova-plugin-flashlight
+npm install --save @ionic-native/flashlight
+
+ionic cordova plugin add cordova-plugin-geolocation --variable GEOLOCATION_USAGE_DESCRIPTION="To locate you"
+npm install --save @ionic-native/geolocation
+
+ionic cordova plugin add phonegap-nfc
+npm install --save @ionic-native/nfc
+
+
+
+npm run build
