@@ -3,6 +3,7 @@ import { NavController,Platform } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 //import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
+
 @Component({
   selector: 'page-identificacion',
   templateUrl: 'identificacion.html'
@@ -11,6 +12,8 @@ export class IdentificacionPage implements OnInit{
   userInfo = {legajo:"U506713", nombre:"Pablo Alberto", apellido:"Massad", llave:"303"};
   qrCode = null;
   scannedCode = null;
+  keyConfirmed:boolean = false;
+
   
       //     preferFrontCamera : true, // iOS and Android
       //     showFlipCameraButton : true, // iOS and Android
@@ -30,6 +33,8 @@ export class IdentificacionPage implements OnInit{
   }
   ngOnInit(){
     console.log('IdentificacionPage init');
+    // Obtiene la informacion del usuario del storage local x servicio
+    // this.userSrv.getUserInfo();
     this.qrCode = JSON.stringify(this.userInfo);
   }
 ///////////////////////////////////////////////////////////////////  

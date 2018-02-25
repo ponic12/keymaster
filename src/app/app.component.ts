@@ -3,8 +3,6 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 
-import { GuardiaPage } from '../pages/guardia/guardia';
-import { UsuarioPage } from '../pages/usuario/usuario';
 import { LoginPage } from '../pages/login/login';
 
 @Component({

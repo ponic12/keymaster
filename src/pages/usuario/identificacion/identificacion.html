@@ -1,8 +1,8 @@
 <ion-content>
   <div class="qrId">
-      <ngx-qrcode [qrc-value]="qrCode" class="qrFrame"></ngx-qrcode>    
+    <ngx-qrcode [qrc-value]="qrCode" class="qrFrame"></ngx-qrcode>
   </div>
-    
+
   <ion-card>
     <ion-item>
       <span item-left>Legajo</span>
@@ -18,10 +18,17 @@
     </ion-item>
   </ion-card>
 
-  <ion-card>
-      <ion-item class="keyStyle">
-        <span item-left>Llave</span>
-        <span item-right>{{userInfo.llave}}</span>
-      </ion-item>
-    </ion-card>  
+  <ion-item>
+    <button ion-button full icon-left (click)="confirm()">
+      <ion-icon name="checkmark-circle"></ion-icon>
+      Confirmar Llave
+    </button>
+  </ion-item>
+
+  <ion-card *ngIf="keyConfirmed">
+    <ion-item class="keyStyle">
+      <span item-left>Llave</span>
+      <span item-right>{{userInfo.llave}}</span>
+    </ion-item>
+  </ion-card>
 </ion-content>

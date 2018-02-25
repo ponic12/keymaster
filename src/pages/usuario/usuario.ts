@@ -1,11 +1,12 @@
 import { Component } from '@angular/core';
-import { NavController,Platform } from 'ionic-angular';
+import { NavController,Platform, IonicPage } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 //import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 import { IdentificacionPage } from './identificacion/identificacion';
 import { TransferenciaPage } from './transferencia/transferencia';
 import { HistoricoPage } from './historico/historico';
 
+@IonicPage()
 @Component({
   selector: 'page-usuario',
   templateUrl: 'usuario.html'
