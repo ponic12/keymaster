@@ -27,8 +27,6 @@ import { IdentificacionPage } from '../pages/usuario/identificacion/identificaci
 import { TransferenciaPage } from '../pages/usuario/transferencia/transferencia';
 import { HistoricoPage } from '../pages/usuario/historico/historico';
 
-import { HomePage } from '../pages/home/home';
-
 import { SharedModule } from './shared/shared.module';
 
 @NgModule({
@@ -45,8 +43,7 @@ import { SharedModule } from './shared/shared.module';
     UsuarioPage,
     IdentificacionPage,
     TransferenciaPage,
-    HistoricoPage,
-    HomePage
+    HistoricoPage
   ],
   imports: [
     SharedModule,
@@ -68,8 +65,7 @@ import { SharedModule } from './shared/shared.module';
     UsuarioPage,
     IdentificacionPage,
     TransferenciaPage,
-    HistoricoPage,
-    HomePage
+    HistoricoPage
   ],
   providers: [
     StatusBar,

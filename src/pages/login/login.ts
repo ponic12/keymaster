@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { NavController,Platform } from 'ionic-angular';
 import { GuardiaPage } from '../guardia/guardia';
 import { UsuarioPage } from '../usuario/usuario';
-
+import { AdminPage } from '../admin/admin';
 
 @Component({
   selector: 'page-login',
@@ -29,10 +29,12 @@ export class LoginPage {
   
 ///////////////////////////////////////////////////////////////////  
   login():void{
-    if (this.username == "u505100") // guardia
+    if (this.username == "u555555") // guardia
       this.navCtrl.push(GuardiaPage, {});
-    else
+    if (this.username == "u506713") // guardia
       this.navCtrl.push(UsuarioPage, {});
+    if (this.username == "u444444") // admin
+      this.navCtrl.push(AdminPage, {});
   }
 
 }
