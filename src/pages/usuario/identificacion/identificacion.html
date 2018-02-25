@@ -1,14 +1,6 @@
-<ion-header>
-  <ion-navbar color="primary">
-    <ion-title>
-      Identificación
-    </ion-title>
-  </ion-navbar>
-</ion-header>
-
 <ion-content>
   <div class="qrId">
-      <ngx-qrcode [qrc-value]="qrCode" ></ngx-qrcode>    
+      <ngx-qrcode [qrc-value]="qrCode" class="qrFrame"></ngx-qrcode>    
   </div>
     
   <ion-card>
@@ -27,7 +19,7 @@
   </ion-card>
 
   <ion-card>
-      <ion-item>
+      <ion-item class="keyStyle">
         <span item-left>Llave</span>
         <span item-right>{{userInfo.llave}}</span>
       </ion-item>

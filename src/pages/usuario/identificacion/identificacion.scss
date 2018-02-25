@@ -1,6 +1,15 @@
 page-identificacion {
     .qrId {
         text-align: center;
-        margin-top:20px;
+        margin-top:75px;
+    }
+
+    .qrFrame {
+        box-shadow: 3px 3px 5px black;
+    }
+
+    .keyStyle {
+        font-weight: bold;
+        font-size: 24px;
     }
 }

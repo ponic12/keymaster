@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { NavController,Platform } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 //import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
@@ -7,7 +7,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
   selector: 'page-identificacion',
   templateUrl: 'identificacion.html'
 })
-export class IdentificacionPage {
+export class IdentificacionPage implements OnInit{
   userInfo = {legajo:"U506713", nombre:"Pablo Alberto", apellido:"Massad", llave:"303"};
   qrCode = null;
   scannedCode = null;
@@ -26,9 +26,12 @@ export class IdentificacionPage {
       
   
   constructor(private barcodeScanner: BarcodeScanner) {
+    console.log('IdentificacionPage constructor');
+  }
+  ngOnInit(){
+    console.log('IdentificacionPage init');
     this.qrCode = JSON.stringify(this.userInfo);
-    }
-  
+  }
 ///////////////////////////////////////////////////////////////////  
   createCode(){
     this.qrCode = "hola"; this.userInfo;
