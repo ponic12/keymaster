@@ -18,14 +18,18 @@ export class LoginPage implements OnInit {
   }
   ///////////////////////////////////////////////////////////////////  
   login(): void {
-    if (this.username == "u506713") // empleado
-      this.navCtrl.push('UsuarioPage', {});
-
-    if (this.username == "u222222") // guardia
-      this.navCtrl.push('GuardiaPage', {});      
-
-    if (this.username == "u111111") // admin
-      this.navCtrl.push('AdminPage', {});
+    var usr = this.username.toLowerCase();
+    switch (usr) {
+      case "u222222":
+        this.navCtrl.push('GuardiaPage', {});
+        break;
+      case "u111111":
+        this.navCtrl.push('AdminPage', {});
+        break;
+      default:
+        this.navCtrl.push('UsuarioPage', {});
+        break;
+    }
   }
 
 }

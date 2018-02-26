@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { NavController, Platform, AlertController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ApplicationService } from '../../../app/shared/services/application.service';
 //import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
@@ -9,7 +9,7 @@ import { ApplicationService } from '../../../app/shared/services/application.ser
   templateUrl: 'registracion.html'
 })
 export class RegistracionPage implements OnInit {
-  userInfo = {};
+  userInfo = {legajo:'', nombre:'', apellido:'', llave:''};
   keyVal = null;
   keyQR = null;
   hasKey = false;
@@ -30,6 +30,7 @@ export class RegistracionPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     private appSrv:ApplicationService,
+    private alertCtrl: AlertController,
     private barcodeScanner: BarcodeScanner,
     private platform:Platform
   ) {
@@ -37,19 +38,27 @@ export class RegistracionPage implements OnInit {
   }
   ngOnInit() {
     console.log('RegistracionPage init');
+    this.blankUser;
   }
   ///////////////////////////////////////////////////////////////////  
   scanKey() {
     this.keyVal = this.scanQR();
   }
   scanUser() {
-    this.userInfo = this.scanQR();
+    this.userInfo = JSON.parse(this.scanQR());
     this.hasKey = true;
   }
   onKeyChange(e){
     this.generateQR(e);
   }
+  regKey(){
+    this.appSrv.message('Informacion','Llave '+this.userInfo.llave+' registrada al usuario: '+ this.userInfo.legajo);
+    this.blankUser();
+  }
 
+  private blankUser(){
+    this.userInfo = {legajo:'', nombre:'', apellido:'', llave:''};
+  }
   private generateQR(msg){
     this.keyQR = JSON.stringify(msg);
   }

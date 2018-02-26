@@ -6,7 +6,7 @@
 
 <ion-content class="backKM">
   <div class="qrId">
-    <ngx-qrcode [qrc-value]="qrCode" class="qrFrame"></ngx-qrcode>
+    <ngx-qrcode [qrc-value]="qrUser" class="qrFrame"></ngx-qrcode>
   </div>
 
   <ion-card class="padInfo">
@@ -25,7 +25,7 @@
   </ion-card>
 
   <ion-row class="btnRow">
-    <ion-col col-4>
+    <ion-col col-6>
       <button ion-button icon-up (click)="regKey()"  [disabled]="hasKey" class="btnAction">
         <div>
           <ion-icon name="pm-input"></ion-icon>
@@ -33,15 +33,15 @@
         </div>
       </button>
     </ion-col>
-    <ion-col col-4>
+    <!-- <ion-col col-4>
       <button ion-button icon-top (click)="transferKey()" [disabled]="!hasKey" class="btnAction">
         <div>
           <ion-icon name="key"></ion-icon>
           <div>Transferir</div>
         </div>
       </button>
-    </ion-col>
-    <ion-col col-4>
+    </ion-col> -->
+    <ion-col col-6>
       <button ion-button (click)="devKey()" [disabled]="!hasKey" class="btnAction">
         <div>
           <ion-icon name="pm-output"></ion-icon>
