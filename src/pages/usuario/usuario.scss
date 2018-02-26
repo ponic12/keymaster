@@ -1,3 +1,39 @@
 page-usuario {
 
+// .ion-page > ion-content {
+//     background: radial-gradient(#def 0%, #8ebbd0 92%);
+// }
+
+    .backKM {
+        // background: lightseagreen;
+        background: radial-gradient(#def 0%, #8ebbd0 92%);
+        margin-top: 60px;
+        padding: 20px;
+    }
+
+    .padInfo{
+        width: 80%;
+        margin: auto; 
+    }
+
+    .btnAction {
+        padding: 20px;
+        height: 60px;
+        width: 90%;
+        border-radius: 5px;
+        box-shadow: 3px 3px 5px #444;
+    }
+
+    .btnRow {
+        margin: 20px;
+    }
+
+    .keyStyle {
+        margin-top:10px;
+        font-size: 25px;
+        font-weight: bold;
+        color:white;
+        text-shadow: 1px 1px 3px black;
+    }
+
 }

@@ -18,16 +18,29 @@
 // automatically applied to the <body> element in the app.
 
 
-.ion-page > ion-content {background: lightBlue}
 
 .title{
     text-shadow: 1px 1px 1px grey;
     vertical-align: super;
     padding-left: 15px;
-    font-size: 30px;
+    font-size: 25px;
 }
 .logo{
     width: 70px;
     margin-top: 10px;
     margin-left: -10px;
+}
+
+
+.qrId {
+    text-align: center;
+    margin: 15px;
+}
+
+.qrKey {
+    margin:auto;
+}
+
+.qrFrame {
+    box-shadow: 3px 3px 5px black;
 }

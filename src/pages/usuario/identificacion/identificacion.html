@@ -1,9 +1,9 @@
-<ion-content>
+<ion-content class="backKM">
   <div class="qrId">
     <ngx-qrcode [qrc-value]="qrCode" class="qrFrame"></ngx-qrcode>
   </div>
 
-  <ion-card>
+  <ion-card class="padInfo" >
     <ion-item>
       <span item-left>Legajo</span>
       <span item-right>{{userInfo.legajo}}</span>
@@ -18,17 +18,10 @@
     </ion-item>
   </ion-card>
 
-  <ion-item>
-    <button ion-button full icon-left (click)="confirm()">
-      <ion-icon name="checkmark-circle"></ion-icon>
-      Confirmar Llave
-    </button>
-  </ion-item>
+  <button ion-button full icon-left (click)="confirmKey()"  class="padInfo">
+    <ion-icon name="checkmark-circle"></ion-icon>
+    Confirmar Llave
+  </button>
 
-  <ion-card *ngIf="keyConfirmed">
-    <ion-item class="keyStyle">
-      <span item-left>Llave</span>
-      <span item-right>{{userInfo.llave}}</span>
-    </ion-item>
-  </ion-card>
+  <p *ngIf="keyConfirmed" class="padInfo keyStyle">Llave: {{userInfo.llave}}</p>
 </ion-content>

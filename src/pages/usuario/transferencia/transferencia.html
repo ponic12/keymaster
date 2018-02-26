@@ -1,13 +1,28 @@
-<ion-content padding>
-  <button ion-button full icon-left (click)="scanCode()">
+<ion-content class="backKM">
+
+  <div class="qrId">
+    <ngx-qrcode [qrc-value]="qrKey" class="qrFrame"></ngx-qrcode>
+    <p class="padInfo keyStyle">Llave: {{keyVal}}</p>
+  </div>
+
+  <button ion-button full icon-left (click)="scanCode()" class="padInfo">
     <ion-icon name="qr-scanner"></ion-icon>
     Scan empleado
   </button>
 
-  <ion-card *ngIf="scannedCode">
-    <ion-card-content>
-      <p>Identificacion: {{ scannedCode | json }}</p>
-    </ion-card-content>
+  <ion-card *ngIf="scannedCode" class="padInfo">
+    <ion-item>
+      <span item-left>Legajo</span>
+      <span item-right>{{scannedCode.legajo}}</span>
+    </ion-item>
+    <ion-item>
+      <span item-left>Nombre</span>
+      <span item-right>{{scannedCode.nombre}}</span>
+    </ion-item>
+    <ion-item>
+      <span item-left>Apellido</span>
+      <span item-right>{{scannedCode.apellido}}</span>
+    </ion-item>
   </ion-card>
 
 </ion-content>

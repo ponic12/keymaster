@@ -1,3 +1,11 @@
 page-admin {
-
+    .ion-page > ion-content {
+        background: radial-gradient(#def 0%, #907294 92%);
+    }
+    
+        .backKM {
+            // background: lightseagreen;
+            margin-top: 60px;
+            padding: 20px;
+        }
 }

@@ -1,3 +1,30 @@
 page-login {
+    .backKM {
+        background: radial-gradient(#ffffff, rgb(108, 120, 124));
+        //background: radial-gradient(#2675b5, #000);
+    }
+
+    .logoKM{
+        margin-top: 100px;
+      }
+
+  .backForm {
+    background: radial-gradient(circle at 50%, #fff, #eee 70%, #ddd 85%, #bdbcbc 100%);
+    //background: white;
+    margin: auto;
+    width: 80%;
+    padding: 20px;
+    left: 0;
+    right: 0;
+    border-radius: 20px;
+    box-shadow: 7px 7px 15px #666;
+  }
+
+  .loginBtn {
+    box-shadow: 7px 7px 25px #444;
+    width: 95%;
+    margin: auto;
+    margin-top: 30px;
+  }
 
 }

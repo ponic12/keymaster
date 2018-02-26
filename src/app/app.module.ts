@@ -12,22 +12,10 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 
-// import { AdminPage } from '../pages/admin/admin';
-// import { InventarioPage } from '../pages/admin/inventario/inventario';
-// import { EstadisticasPage } from '../pages/admin/estadisticas/estadisticas';
-
-// import { GuardiaPage } from '../pages/guardia/guardia';
-// import { RegistracionPage } from '../pages/guardia/registracion/registracion';
-// import { DesregistracionPage } from '../pages/guardia/desregistracion/desregistracion';
-// import { ListadoPage } from '../pages/guardia/listado/listado';
-
-// import { UsuarioPage } from '../pages/usuario/usuario';
-// import { IdentificacionPage } from '../pages/usuario/identificacion/identificacion';
-// import { TransferenciaPage } from '../pages/usuario/transferencia/transferencia';
-// import { HistoricoPage } from '../pages/usuario/historico/historico';
-
 import { SharedModule } from './shared/shared.module';
 import { UsuarioModule } from '../pages/usuario/usuario.module';
+import { GuardiaModule } from '../pages/guardia/guardia.module';
+import { AdminModule } from '../pages/admin/admin.module';
 
 @NgModule({
   declarations: [
@@ -36,6 +24,8 @@ import { UsuarioModule } from '../pages/usuario/usuario.module';
   ],
   imports: [
     UsuarioModule,
+    GuardiaModule,
+    AdminModule,
     SharedModule,
     BrowserModule,
     IonicModule.forRoot(MyApp)

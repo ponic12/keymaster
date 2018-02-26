@@ -8,9 +8,9 @@ import { SharedModule } from '../../app/shared/shared.module';
 import { UsuarioService } from './usuario.service';
 import { UsuarioPage } from './usuario';
 
-import { IdentificacionPage } from './identificacion/identificacion';
-import { TransferenciaPage } from './transferencia/transferencia';
-import { HistoricoPage } from './historico/historico';
+// import { IdentificacionPage } from './identificacion/identificacion';
+// import { TransferenciaPage } from './transferencia/transferencia';
+// import { HistoricoPage } from './historico/historico';
 
 
 @NgModule({
@@ -20,23 +20,16 @@ import { HistoricoPage } from './historico/historico';
     IonicPageModule.forChild(UsuarioPage),
   ],
   declarations: [
-      IdentificacionPage,
-      TransferenciaPage,
-      HistoricoPage,
-      UsuarioPage
-    ],
-  entryComponents:[
-    IdentificacionPage,
-    TransferenciaPage,
-    HistoricoPage
+    UsuarioPage
   ],
-  providers:[
+  entryComponents: [ ],
+  providers: [
     BarcodeScanner,
     UsuarioService
-    ]
+  ]
 })
 export class UsuarioModule {
-    constructor(){
-        console.log('UsuarioModule constructor');
-    }
+  constructor() {
+    console.log('UsuarioModule constructor');
+  }
 }

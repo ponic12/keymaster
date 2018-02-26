@@ -6,20 +6,37 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content padding>
-  <ion-list>
-    <ion-item>
-      <ion-label floating>Username</ion-label>
-      <ion-input type="text" [(ngModel)]="username"></ion-input>
-    </ion-item>
+<ion-content class="backKM">
+  <ion-row class="logoKM">
+    <ion-col col-3></ion-col>
+    <ion-col >
+      <img src="assets/imgs/logoKM.png" width="300px">
+    </ion-col>
+    <ion-col col-3></ion-col>
+  </ion-row>
 
-    <ion-item>
-      <ion-label floating>Password</ion-label>
-      <ion-input type="password" [(ngModel)]="password"></ion-input>
-    </ion-item>
-  </ion-list>
+  <div>
+    <form #loginForm="ngForm">
+      <ion-row class="backForm">
+        <ion-col>
+          <ion-item floating style="background:transparent">
+            <ion-label floating>Usuario</ion-label>
+            <ion-input name="usuario" [(ngModel)]="username" telnum></ion-input>
+          </ion-item>
+          <ion-item floating style="background:transparent">
+            <ion-label floating>Contraseña</ion-label>
+            <ion-input name="contrasena" [(ngModel)]="password"></ion-input>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col>
+          <button ion-button (click)="login()" class="loginBtn" full type="submit" [disabled]="loginForm.form.invalid" round color="primary">
+            Ingresar
+          </button>
+        </ion-col>
+      </ion-row>
+    </form>
+  </div>
 
-  <button full ion-button icon-left (click)="login()">
-    <ion-icon name="person"></ion-icon>Ingresar
-  </button>
 </ion-content>

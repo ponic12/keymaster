@@ -1,6 +1,57 @@
-<ion-tabs>
+<!-- <ion-tabs>
     <ion-tab [root]="tabs1" tabTitle="Identificacion" tabIcon="contact"  ></ion-tab>
     <ion-tab [root]="tabs2" tabTitle="Transferencia" tabIcon="key" ></ion-tab>
     <ion-tab [root]="tabs3" tabTitle="Historico" tabIcon="paper"  ></ion-tab>
-</ion-tabs>
+</ion-tabs> -->
 
+<ion-content class="backKM">
+  <div class="qrId">
+    <ngx-qrcode [qrc-value]="qrCode" class="qrFrame"></ngx-qrcode>
+  </div>
+
+  <ion-card class="padInfo">
+    <ion-item>
+      <span item-left>Legajo</span>
+      <span item-right>{{userInfo.legajo}}</span>
+    </ion-item>
+    <ion-item>
+      <span item-left>Nombre</span>
+      <span item-right>{{userInfo.nombre}}</span>
+    </ion-item>
+    <ion-item>
+      <span item-left>Apellido</span>
+      <span item-right>{{userInfo.apellido}}</span>
+    </ion-item>
+  </ion-card>
+
+  <ion-row class="btnRow">
+    <ion-col col-4>
+      <button ion-button icon-up (click)="regKey()"  [disabled]="hasKey" class="btnAction">
+        <div>
+          <ion-icon name="pm-input"></ion-icon>
+          <div>Registrar</div>
+        </div>
+      </button>
+    </ion-col>
+    <ion-col col-4>
+      <button ion-button icon-top (click)="transferKey()" [disabled]="!hasKey" class="btnAction">
+        <div>
+          <ion-icon name="key"></ion-icon>
+          <div>Transferir</div>
+        </div>
+      </button>
+    </ion-col>
+    <ion-col col-4>
+      <button ion-button (click)="devKey()" [disabled]="!hasKey" class="btnAction">
+        <div>
+          <ion-icon name="pm-output"></ion-icon>
+          <div>Devolver</div>
+        </div>
+      </button>
+    </ion-col>
+  </ion-row>
+
+
+
+  <p *ngIf="hasKey" class="padInfo keyStyle">Llave: {{userInfo.llave}}</p>
+</ion-content>

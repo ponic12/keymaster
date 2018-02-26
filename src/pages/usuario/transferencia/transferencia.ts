@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { ApplicationService } from '../../../app/shared/services/application.service';
 //import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
 @Component({
@@ -8,8 +9,9 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
   templateUrl: 'transferencia.html'
 })
 export class TransferenciaPage implements OnInit {
+  keyVal:string = '303';
   qrData = null;
-  createdCode = null;
+  qrKey = null;
   scannedCode = null;
 
   //     preferFrontCamera : true, // iOS and Android
@@ -25,25 +27,44 @@ export class TransferenciaPage implements OnInit {
   //     disableSuccessBeep: false // iOS and Android
 
 
-  constructor(private platform: Platform, private barcodeScanner: BarcodeScanner) {
+  constructor(
+    private platform: Platform, 
+    private appSrv:ApplicationService,
+    private barcodeScanner: BarcodeScanner) {
     console.log('TransferenciaPage constructor');
   }
   ngOnInit() {
     console.log('TransferenciaPage init');
+    // Get Key Info
+    this.keyVal = '303';
+    if (this.keyVal){
+      this.qrData = JSON.stringify({key:this.keyVal}); 
+      this.qrKey = this.qrData;
+    }
   }
-  ///////////////////////////////////////////////////////////////////  
+
   scanCode() {
     if (this.platform.is('cordova')) {
       this.barcodeScanner.scan().then(barcodeData => {
         this.scannedCode = barcodeData.text;
       })
     } else {
+      this.appSrv.message('Error', 'QR no disponible en web');
       console.log('Scan of QR not supported in browser....');
     }
   }
 
   transferKey() {
 
+  }
+
+  ////////////////////////////////////////////////////////////////
+  private createCode(){
+    if (this.platform.is('cordova')) {
+      this.qrKey = this.qrData;
+    } else {
+      console.log('Creation QR not supported in browser....');
+    }
   }
 
 }

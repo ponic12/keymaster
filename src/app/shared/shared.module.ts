@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApplicationService } from './services/application.service';
 import { StorageService } from './services/storage.service';
 import { GlobalService } from './services/global.service';
+
 import { HighlightDirective } from './directives/highlight.directive';
 import { TelNumDirective } from './directives/tel-num.directive';
 import { HttpIntercept } from './http.interceptor';
@@ -20,7 +21,12 @@ import { HttpIntercept } from './http.interceptor';
     TelNumDirective],
   exports: [ 
     HighlightDirective, 
-    TelNumDirective ]
+    TelNumDirective ],
+  providers:[
+    ApplicationService,
+    StorageService,
+    GlobalService
+  ]
 })
 export class SharedModule {
   static forRoot(): ModuleWithProviders {

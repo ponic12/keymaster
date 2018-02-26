@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController,Platform } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
+import { ApplicationService } from '../../../app/shared/services/application.service';
 //import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 
 
@@ -28,35 +29,36 @@ export class IdentificacionPage implements OnInit{
       //     disableSuccessBeep: false // iOS and Android
       
   
-  constructor(private barcodeScanner: BarcodeScanner) {
+  constructor(
+    private barcodeScanner: BarcodeScanner,
+    private appSrv:ApplicationService,
+    private platform:Platform
+  ) {
     console.log('IdentificacionPage constructor');
   }
   ngOnInit(){
     console.log('IdentificacionPage init');
     // Obtiene la informacion del usuario del storage local x servicio
     // this.userSrv.getUserInfo();
-    this.qrCode = JSON.stringify(this.userInfo);
+    this.generateQR(this.userInfo);
   }
-///////////////////////////////////////////////////////////////////  
-  createCode(){
-    this.qrCode = "hola"; this.userInfo;
-    // if (this.platform.is('cordova')) {
-    //   this.createdCode = this.qrData;
-    // } else {
-    //   console.log('Creation QR not supported in browser....');
-    // }
+
+  confirmKey(){
+    if (this.platform.is('cordova')) {
+      this.barcodeScanner.scan().then(barcodeData => {
+        this.scannedCode = barcodeData.text;
+        this.userInfo.llave = this.scannedCode.key;
+        this.generateQR(this.userInfo);
+        this.keyConfirmed = true;
+      })
+    } else {
+      this.appSrv.message('Error', 'QR no disponible en web');
+      console.log('Scan of QR not supported in browser....');
+    }
   }
-  scanCode(){
-    this.barcodeScanner.scan().then(barcodeData => {
-      this.scannedCode = barcodeData.text;
-    })
-    // if (this.platform.is('cordova')) {
-    //   this.barcodeScanner.scan().then(barcodeData => {
-    //     this.scannedCode = barcodeData.text;
-    //   })
-    // } else {
-    //   console.log('Scan of QR not supported in browser....');
-    // }
+
+  private generateQR(msg){
+    this.qrCode = JSON.stringify(msg);
   }
 
 }

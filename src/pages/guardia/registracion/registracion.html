@@ -1,28 +1,24 @@
-<ion-content>
-  <ion-header>
-    <ion-navbar color="primary">
-      <ion-title>
-        Registracion
-      </ion-title>
-    </ion-navbar>
-  </ion-header>
+<ion-content class="backKM">
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-card>
+        <ion-card style="padding:10px">
           <ion-item>
             <ion-label floating>Llave</ion-label>
-            <ion-input type="text" [(ngModel)]="qrKey"></ion-input>
+            <ion-input type="text" [(ngModel)]="keyVal" (input)='onKeyChange($event.target.value)'></ion-input>
           </ion-item>
         </ion-card>
       </ion-col>
-      <button ion-button icon-left (click)="readQRKey()" style="margin-top:30px;margin-left:-80px">
+      <button ion-button icon-left (click)="scanKey()" class="qrScanner" >
         <ion-icon name="qr-scanner" style="margin-left:5px"></ion-icon>
       </button>
     </ion-row>
+    <ion-row class="qrKey" *ngIf="keyVal != '' ">
+      <ngx-qrcode [qrc-value]="keyQR"></ngx-qrcode>
+    </ion-row>
     <ion-row>
       <ion-col>
-        <ion-card>
+        <ion-card  style="padding:10px">
           <ion-item>
             <ion-label floating>Legajo</ion-label>
             <ion-input type="text" [(ngModel)]="userInfo.legajo"></ion-input>
@@ -40,12 +36,12 @@
             </ion-avatar> -->
         </ion-card>
       </ion-col>
-      <button ion-button icon-left (click)="readQRKey()" style="margin-top:30px;margin-left:-80px">
+      <button ion-button icon-left (click)="scanUser()" class="qrScanner" >
         <ion-icon name="qr-scanner" style="margin-left:5px"></ion-icon>
       </button>
     </ion-row>
-    <button ion-button icon-left (click)="registerKey()">
-      <ion-icon name="star"></ion-icon>Registrar
+    <button ion-button icon-left (click)="registerKey()" [disabled]="!hasKey">
+      <ion-icon name="star"></ion-icon>Registrar llave
     </button>
   </ion-grid>
 </ion-content>
