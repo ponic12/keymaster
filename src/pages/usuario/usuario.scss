@@ -3,12 +3,15 @@ page-usuario {
 // .ion-page > ion-content {
 //     background: radial-gradient(#def 0%, #8ebbd0 92%);
 // }
+    .qrcode img{
+        width: 30%;
+        box-shadow: 2px 2px 4px #868686;
+    }
 
-    .backKM {
-        // background: lightseagreen;
-        background: radial-gradient(#def 0%, #8ebbd0 92%);
-        margin-top: 60px;
-        padding: 20px;
+    .qrcode {
+        text-align: center;
+        margin-top: 30px;
+        margin-bottom: 10px;
     }
 
     .padInfo{
@@ -33,6 +36,32 @@ page-usuario {
         font-size: 25px;
         font-weight: bold;
         color:white;
+        text-shadow: 1px 1px 3px black;
+    }
+
+
+    .keyBackground{
+        border-radius: 50%;
+        background: green;
+        -webkit-box-shadow: 2px 2px 4px grey;
+        box-shadow: 2px 2px 4px grey;
+        width: 180px;
+        height: 180px;
+        text-align: center;
+        margin: auto;
+    }
+    .keyIcon{
+        font-size: 130px;
+        color:white;
+        text-shadow: 2px 2px 2px black;
+        text-align: center;
+    }
+    .keyText{
+        text-align: center;
+        font-size: 25px;
+        color:white;
+        font-weight: bold;
+        margin-top: -30px;
         text-shadow: 1px 1px 3px black;
     }
 

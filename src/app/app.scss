@@ -17,7 +17,12 @@
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
 
-
+.backKM {
+    background: radial-gradient(#def 0%, #8ebbd0 92%);
+    margin-top: 60px;
+    height: calc( 100vh - 60px);
+    padding: 20px;
+}
 
 .title{
     text-shadow: 1px 1px 1px grey;
@@ -41,6 +46,3 @@
     margin:auto;
 }
 
-.qrFrame {
-    box-shadow: 3px 3px 5px black;
-}

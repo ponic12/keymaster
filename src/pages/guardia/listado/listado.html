@@ -1,8 +1,24 @@
-<ion-content class="backKM" >
-  
-  <ion-grid>
+<ion-content class="backKM">
+  <ion-grid class="histGrid">
     <ion-row>
-      
+      <ion-col col-3 text-center class="titleGrid">
+        <h6>Fecha</h6>
+      </ion-col>
+      <ion-col col-3 text-center class="titleGrid">
+        <h6>Reg</h6>
+      </ion-col>
+      <ion-col col-3 text-center class="titleGrid">
+        <h6>Dev</h6>
+      </ion-col>
+      <ion-col col-3 text-center class="titleGrid">
+        <h6>Llave</h6>
+      </ion-col>
+    </ion-row>
+    <ion-row class="rowHist" *ngFor="let hist of histList">
+      <ion-col col-3 class="cell">{{hist.date}}</ion-col>
+      <ion-col col-3 class="cell">{{hist.reg}}</ion-col>
+      <ion-col col-3 class="cell">{{hist.dev}}</ion-col>
+      <ion-col col-3 class="cell">{{hist.key}}</ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

@@ -4,22 +4,6 @@
       <ion-col>
         <ion-card style="padding:10px">
           <ion-item>
-            <ion-label floating>Llave</ion-label>
-            <ion-input type="text" [(ngModel)]="keyVal" (input)='onKeyChange($event.target.value)'></ion-input>
-          </ion-item>
-        </ion-card>
-      </ion-col>
-      <button ion-button icon-left (click)="scanKey()" class="qrScanner" >
-        <ion-icon name="qr-scanner" style="margin-left:5px"></ion-icon>
-      </button>
-    </ion-row>
-    <ion-row class="qrKey" *ngIf="keyVal != '' ">
-      <ngx-qrcode [qrc-value]="keyQR"></ngx-qrcode>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-card  style="padding:10px">
-          <ion-item>
             <ion-label floating>Legajo</ion-label>
             <ion-input type="text" [(ngModel)]="userInfo.legajo"></ion-input>
           </ion-item>
@@ -29,18 +13,32 @@
           </ion-item>
           <ion-item>
             <ion-label floating>Apellido</ion-label>
-            <ion-input type="text" [(ngModel)]="userInfo.nombre"></ion-input>
+            <ion-input type="text" [(ngModel)]="userInfo.apellido"></ion-input>
           </ion-item>
           <!-- <ion-avatar item-start>
               <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-buzz.png">
             </ion-avatar> -->
         </ion-card>
       </ion-col>
-      <button ion-button icon-left (click)="scanUser()" class="qrScanner" >
+      <button ion-button icon-left (click)="scanUser()" class="qrScanner">
         <ion-icon name="qr-scanner" style="margin-left:5px"></ion-icon>
       </button>
     </ion-row>
-    <button ion-button icon-left (click)="regKey()" [disabled]="!hasKey">
+    <ion-row>
+      <ion-col>
+        <ion-card style="padding:10px">
+          <ion-item>
+            <ion-label floating>Llave</ion-label>
+            <ion-input type="text" [(ngModel)]="keyVal"></ion-input>
+          </ion-item>
+        </ion-card>
+      </ion-col>
+      <button ion-button icon-left (click)="scanKey()" class="qrScanner">
+        <ion-icon name="qr-scanner" style="margin-left:5px"></ion-icon>
+      </button>
+    </ion-row>
+    <ngx-qrcode [qrc-value]="qrUser"></ngx-qrcode>
+    <button ion-button icon-left (click)="regKey()" [disabled]="!qrUser">
       <ion-icon name="star"></ion-icon>Registrar llave
     </button>
   </ion-grid>

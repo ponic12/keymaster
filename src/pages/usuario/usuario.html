@@ -1,13 +1,5 @@
-<!-- <ion-tabs>
-    <ion-tab [root]="tabs1" tabTitle="Identificacion" tabIcon="contact"  ></ion-tab>
-    <ion-tab [root]="tabs2" tabTitle="Transferencia" tabIcon="key" ></ion-tab>
-    <ion-tab [root]="tabs3" tabTitle="Historico" tabIcon="paper"  ></ion-tab>
-</ion-tabs> -->
-
 <ion-content class="backKM">
-  <div class="qrId">
-    <ngx-qrcode [qrc-value]="qrUser" class="qrFrame"></ngx-qrcode>
-  </div>
+  <ngx-qrcode [qrc-value]="qrUser" ></ngx-qrcode>
 
   <ion-card class="padInfo">
     <ion-item>
@@ -52,6 +44,8 @@
   </ion-row>
 
 
-
-  <p *ngIf="hasKey" class="padInfo keyStyle">Llave: {{userInfo.llave}}</p>
+  <div *ngIf="hasKey" class="keyBackground">
+    <ion-icon class="keyIcon" name="key" ></ion-icon>
+    <div class="keyText">{{userInfo.llave}}</div>
+  </div>
 </ion-content>

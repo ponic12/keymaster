@@ -3,17 +3,6 @@ import { NavController, Platform, AlertController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ApplicationService } from '../../../app/shared/services/application.service';
 //import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
-
-@Component({
-  selector: 'page-registracion',
-  templateUrl: 'registracion.html'
-})
-export class RegistracionPage implements OnInit {
-  userInfo = {legajo:'', nombre:'', apellido:'', llave:''};
-  keyVal = null;
-  keyQR = null;
-  hasKey = false;
-
   //     preferFrontCamera : true, // iOS and Android
   //     showFlipCameraButton : true, // iOS and Android
   //     showTorchButton : true, // iOS and Android
@@ -26,6 +15,14 @@ export class RegistracionPage implements OnInit {
   //     disableAnimations : true, // iOS
   //     disableSuccessBeep: false // iOS and Android
 
+@Component({
+  selector: 'page-registracion',
+  templateUrl: 'registracion.html'
+})
+export class RegistracionPage implements OnInit {
+  userInfo = {legajo:'', nombre:'', apellido:'', llave:''};
+  keyVal = null;
+  qrUser = null;
 
   constructor(
     public navCtrl: NavController,
@@ -38,18 +35,30 @@ export class RegistracionPage implements OnInit {
   }
   ngOnInit() {
     console.log('RegistracionPage init');
-    this.blankUser;
+    this.blankUser();
   }
-  ///////////////////////////////////////////////////////////////////  
-  scanKey() {
-    this.keyVal = this.scanQR();
-  }
+
   scanUser() {
-    this.userInfo = JSON.parse(this.scanQR());
-    this.hasKey = true;
+    if (this.platform.is('cordova')) {
+      this.barcodeScanner.scan().then(barcodeData => {
+        var obj = JSON.parse(barcodeData.text);
+        this.userInfo = obj;
+        this.qrUser = JSON.stringify(this.userInfo);
+      })
+    } else {
+      this.appSrv.message('Error', 'QR no disponible en web');
+      console.log('Scan of QR not supported in browser....');
+    }
   }
-  onKeyChange(e){
-    this.generateQR(e);
+  scanKey() {
+    if (this.platform.is('cordova')) {
+      this.barcodeScanner.scan().then(barcodeData => {
+        this.keyVal = JSON.parse(barcodeData.text);
+      })
+    } else {
+      this.appSrv.message('Error', 'QR no disponible en web');
+      console.log('Scan of QR not supported in browser....');
+    }
   }
   regKey(){
     this.appSrv.message('Informacion','Llave '+this.userInfo.llave+' registrada al usuario: '+ this.userInfo.legajo);
@@ -59,20 +68,6 @@ export class RegistracionPage implements OnInit {
   private blankUser(){
     this.userInfo = {legajo:'', nombre:'', apellido:'', llave:''};
   }
-  private generateQR(msg){
-    this.keyQR = JSON.stringify(msg);
-  }
-  private scanQR():any {
-    if (this.platform.is('cordova')) {
-      this.barcodeScanner.scan().then(barcodeData => {
-        return barcodeData.text;
-      })
-    } else {
-      this.appSrv.message('Error', 'QR no disponible en web');
-      console.log('Scan of QR not supported in browser....');
-    }
-  }
-
 }
 
 
