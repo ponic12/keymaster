@@ -3,16 +3,6 @@ page-usuario {
 // .ion-page > ion-content {
 //     background: radial-gradient(#def 0%, #8ebbd0 92%);
 // }
-    .qrcode img{
-        width: 30%;
-        box-shadow: 2px 2px 4px #868686;
-    }
-
-    .qrcode {
-        text-align: center;
-        margin-top: 30px;
-        margin-bottom: 10px;
-    }
 
     .padInfo{
         width: 80%;
@@ -20,25 +10,12 @@ page-usuario {
     }
 
     .btnAction {
-        padding: 20px;
-        height: 60px;
-        width: 90%;
+        padding: 10px;
+        height: 40px;
+        width: 80%;
         border-radius: 5px;
         box-shadow: 3px 3px 5px #444;
     }
-
-    .btnRow {
-        margin: 20px;
-    }
-
-    .keyStyle {
-        margin-top:10px;
-        font-size: 25px;
-        font-weight: bold;
-        color:white;
-        text-shadow: 1px 1px 3px black;
-    }
-
 
     .keyBackground{
         border-radius: 50%;

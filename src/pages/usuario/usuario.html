@@ -1,5 +1,5 @@
 <ion-content class="backKM">
-  <ngx-qrcode [qrc-value]="qrUser" ></ngx-qrcode>
+  <ngx-qrcode [qrc-value]="qrUser"></ngx-qrcode>
 
   <ion-card class="padInfo">
     <ion-item>
@@ -16,36 +16,17 @@
     </ion-item>
   </ion-card>
 
-  <ion-row class="btnRow">
-    <ion-col col-6>
-      <button ion-button icon-up (click)="regKey()"  [disabled]="hasKey" class="btnAction">
-        <div>
-          <ion-icon name="pm-input"></ion-icon>
-          <div>Registrar</div>
-        </div>
-      </button>
-    </ion-col>
-    <!-- <ion-col col-4>
-      <button ion-button icon-top (click)="transferKey()" [disabled]="!hasKey" class="btnAction">
-        <div>
-          <ion-icon name="key"></ion-icon>
-          <div>Transferir</div>
-        </div>
-      </button>
-    </ion-col> -->
-    <ion-col col-6>
-      <button ion-button (click)="devKey()" [disabled]="!hasKey" class="btnAction">
-        <div>
-          <ion-icon name="pm-output"></ion-icon>
-          <div>Devolver</div>
-        </div>
+  <ion-row>
+    <ion-col style="text-align:center">
+      <button ion-button icon-left (click)="confirm()" class="btnAction">
+        <ion-icon name="qr-scanner"></ion-icon>Confirmar
       </button>
     </ion-col>
   </ion-row>
 
 
-  <div *ngIf="hasKey" class="keyBackground">
-    <ion-icon class="keyIcon" name="key" ></ion-icon>
+  <div *ngIf="(userInfo.llave != '')" class="keyBackground">
+    <ion-icon class="keyIcon" name="key"></ion-icon>
     <div class="keyText">{{userInfo.llave}}</div>
   </div>
 </ion-content>

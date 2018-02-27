@@ -1,13 +1,19 @@
 page-registracion {
-    .ico{
-        color:white;
-        background: white;
-        height: 30px;
+    .qrcode {
+        text-align: center;
+        margin-top: 0px;
+        margin-bottom: 10px;
     }
 
+    // .ico{
+    //     color:white;
+    //     background: white;
+    //     height: 30px;
+    // }
+
     .qrScanner{
-        margin-top: 30px;
-        height: 50px;
+        margin-top: 20px;
+        height: 40px;
         margin-left: -80px;
     }
 }

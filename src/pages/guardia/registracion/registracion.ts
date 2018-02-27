@@ -21,8 +21,10 @@ import { ApplicationService } from '../../../app/shared/services/application.ser
 })
 export class RegistracionPage implements OnInit {
   userInfo = {legajo:'', nombre:'', apellido:'', llave:''};
-  keyVal = null;
   qrUser = null;
+  iconType = "pm-output";
+  operation = "Registro de llave";
+  showOperation:boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -43,6 +45,16 @@ export class RegistracionPage implements OnInit {
       this.barcodeScanner.scan().then(barcodeData => {
         var obj = JSON.parse(barcodeData.text);
         this.userInfo = obj;
+        if (obj.llave){
+          this.iconType = "pm-input";
+          this.operation = "Devolucion llave";
+          this.userInfo.llave = obj.llave;
+          this.qrUser = JSON.stringify(this.userInfo);
+        }
+        else{
+          this.iconType = "pm-output";
+          this.operation = "Registro de llave";
+        }
         this.qrUser = JSON.stringify(this.userInfo);
       })
     } else {
@@ -53,15 +65,24 @@ export class RegistracionPage implements OnInit {
   scanKey() {
     if (this.platform.is('cordova')) {
       this.barcodeScanner.scan().then(barcodeData => {
-        this.keyVal = JSON.parse(barcodeData.text);
+        this.userInfo.llave = JSON.parse(barcodeData.text);
+        this.qrUser = JSON.stringify(this.userInfo);
       })
     } else {
       this.appSrv.message('Error', 'QR no disponible en web');
       console.log('Scan of QR not supported in browser....');
     }
   }
-  regKey(){
-    this.appSrv.message('Informacion','Llave '+this.userInfo.llave+' registrada al usuario: '+ this.userInfo.legajo);
+  onKeyChange(e){
+    this.qrUser = JSON.stringify(this.userInfo);
+    this.showOperation = ((this.userInfo.legajo!='') && (this.userInfo.llave!=''));
+
+  }
+  callServer(){
+    if (this.iconType == "pm-output")
+      this.appSrv.message('Informacion','Llave '+this.userInfo.llave+' registrada al usuario: '+ this.userInfo.legajo);
+    if (this.iconType == "pm-input")
+      this.appSrv.message('Informacion','Llave '+this.userInfo.llave+' devuelta por el usuario: '+ this.userInfo.legajo);
     this.blankUser();
   }
 
