@@ -24,7 +24,6 @@ export class RegistracionPage implements OnInit {
   qrUser = null;
   iconType = "pm-output";
   operation = "Registro de llave";
-  showOperation:boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -75,8 +74,6 @@ export class RegistracionPage implements OnInit {
   }
   onKeyChange(e){
     this.qrUser = JSON.stringify(this.userInfo);
-    this.showOperation = ((this.userInfo.legajo!='') && (this.userInfo.llave!=''));
-
   }
   callServer(){
     if (this.iconType == "pm-output")

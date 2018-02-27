@@ -9,7 +9,6 @@ import { GuardiaService } from './guardia.service';
 import { GuardiaPage } from './guardia';
 
 import { RegistracionPage } from './registracion/registracion';
-import { DesregistracionPage } from './desregistracion/desregistracion';
 import { ListadoPage } from './listado/listado';
 
 
@@ -22,12 +21,10 @@ import { ListadoPage } from './listado/listado';
   declarations: [
     GuardiaPage,
     RegistracionPage,
-    DesregistracionPage,
     ListadoPage
   ],
   entryComponents: [
     RegistracionPage,
-    DesregistracionPage,
     ListadoPage
   ],
   providers: [

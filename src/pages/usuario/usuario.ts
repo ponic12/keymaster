@@ -31,7 +31,12 @@ export class UsuarioPage implements OnInit {
       this.barcodeScanner.scan().then(barcodeData => {
         var obj = JSON.parse(barcodeData.text);
         if (obj) {
-          this.userInfo.llave = (this.userInfo.llave == obj.llave) ? obj.llave : '';
+          if (this.userInfo.llave == '')
+            this.userInfo.llave = obj.llave;
+          else{
+            if (this.userInfo.llave == obj.llave)
+              this.userInfo.llave = '';
+          }
           this.qrUser = JSON.stringify(this.userInfo);          
         }
         else

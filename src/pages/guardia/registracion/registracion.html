@@ -39,8 +39,8 @@
     </ion-row>
 
 
-    <ngx-qrcode [qrc-value]="qrUser" *ngIf="userInfo.legajo"></ngx-qrcode>
-    <button ion-button icon-left (click)="callServer()" *ngIf="showOperation">
+    <ngx-qrcode [qrc-value]="qrUser" *ngIf="userInfo.legajo!=''"></ngx-qrcode>
+    <button ion-button icon-left (click)="callServer()" *ngIf="(userInfo.legajo!='')&&(userInfo.llave !='')">
       <ion-icon [name]="iconType"></ion-icon>{{operation}}
     </button>
   </ion-grid>

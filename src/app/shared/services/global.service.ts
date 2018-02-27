@@ -8,6 +8,17 @@ export class GlobalService {
     //private URL:string = "http://dwin0404/apiproxy/api/";
     private URL:string = "http://190.225.183.34:8080/apiproxy/api/";
 
+    listadoDiario = [
+        {reg:'08:00',dev:'', key:'332', legajo:'u522321' },
+        {reg:'08:20',dev:'14:11', key:'201', legajo:'u502113' },
+        {reg:'08:30',dev:'', key:'205', legajo:'u512321' },
+        {reg:'08:45',dev:'', key:'111', legajo:'u521326' },
+        {reg:'09:00',dev:'', key:'105', legajo:'u524999' },
+        {reg:'09:10',dev:'10:30', key:'200', legajo:'u5242321' },
+        {reg:'09:15',dev:'12:20', key:'202', legajo:'u5242321' }
+      ];
+
+      
     private usr = new BehaviorSubject<any>({});
     user = this.usr.asObservable();
     changeUser(msg: any) {
