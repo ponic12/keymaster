@@ -41,6 +41,8 @@ npm run build
 
 
 // FIREBASE
+npm install @google-cloud/storage --save
+
 npm install -g firebase-tools
 mkdir firebase-functions
 cd firebase-functions

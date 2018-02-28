@@ -5,7 +5,7 @@ import { SplashScreen } from '@ionic-native/splash-screen';
 
 import { LoginPage } from '../pages/login/login';
 
-declare const FCMPlugin:any;
+//declare const FCMPlugin:any;
 
 @Component({
   templateUrl: 'app.html'

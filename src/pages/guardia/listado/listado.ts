@@ -13,6 +13,8 @@ import 'rxjs/add/operator/map';
 })
 export class ListadoPage implements OnInit {
   registros$: Observable<any[]>;
+  criteria:string;
+  
   private sdEmp:string = 'desc';
   private sdKey:string = 'desc';
 

@@ -10,7 +10,7 @@ import { GuardiaPage } from './guardia';
 
 import { RegistracionPage } from './registracion/registracion';
 import { ListadoPage } from './listado/listado';
-
+import { FilterReg } from './listado/filterReg.pipe';
 
 @NgModule({
   imports: [
@@ -21,7 +21,8 @@ import { ListadoPage } from './listado/listado';
   declarations: [
     GuardiaPage,
     RegistracionPage,
-    ListadoPage
+    ListadoPage,
+    FilterReg
   ],
   entryComponents: [
     RegistracionPage,
