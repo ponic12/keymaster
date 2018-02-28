@@ -6,6 +6,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ApplicationService } from './services/application.service';
 import { StorageService } from './services/storage.service';
 import { GlobalService } from './services/global.service';
+import { FirebaseService } from './services/firebase.service';
 
 import { HighlightDirective } from './directives/highlight.directive';
 import { TelNumDirective } from './directives/tel-num.directive';
@@ -25,7 +26,8 @@ import { HttpIntercept } from './http.interceptor';
   providers:[
     ApplicationService,
     StorageService,
-    GlobalService
+    GlobalService,
+    FirebaseService
   ]
 })
 export class SharedModule {
@@ -35,6 +37,7 @@ export class SharedModule {
       providers: [
         ApplicationService, 
         StorageService, 
+        FirebaseService,
         GlobalService,
         {
           provide: HTTP_INTERCEPTORS,

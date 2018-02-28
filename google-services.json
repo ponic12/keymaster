@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "910397781327",
+    "firebase_url": "https://keymaster-c4ee3.firebaseio.com",
+    "project_id": "keymaster-c4ee3",
+    "storage_bucket": "keymaster-c4ee3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:910397781327:android:2c1624651d889189",
+        "android_client_info": {
+          "package_name": "teco.keymaster"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "910397781327-v9r076nkjtochrjidr944tea3t3jji06.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyARD59lnWuJVDSuWvbQaJui6au5ruQvU3Y"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

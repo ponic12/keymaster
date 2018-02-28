@@ -38,3 +38,39 @@ npm install --save @ionic-native/nfc
 
 
 npm run build
+
+
+// FIREBASE
+npm install -g firebase-tools
+mkdir firebase-functions
+cd firebase-functions
+firebase --version
+firebase login --no-localhost
+login by gmail.... => authorization code:
+( 4/i83gEkbippOMRq4OemlfBADyh6gRzcVxW3UUJDk2850 )
+( 4/T7GXxsq1GggRPtxj0dfKx0JJpdypFl28ZQWhlf4Kack ) 4/11/17
+
+firebase init
+cd functions
+nano .gitignore  (node_modules)
+editar archivo:  index.js
+firebase deploy --only functions:xxxx
+
+// FIRESTORE
+sudo npm install firebase angularfire2 --save
+
+// FCM Notifications
+Cambiar config.xml ID (app.xxx.com)
+En sitio Firebase Agregar FB a android, obtener google-services.json
+
+ionic cordova plugin add cordova-plugin-fcm --save 
+
+(Eventualmente HACK ):
+- /plugins/plugin-cordova-fcm/src/android/fcmplugin.grandle  
+- com.google.gsm:google-services:3.0.0
+
+/* Codigo en app */
+declare const FCMPlugin:any;
+FCMPlugin.subscribeToTopic('registrationTopic ');
+
+npm install fcm-node --save
