@@ -36,7 +36,23 @@ export class FirebaseService {
         return this.registros$;
     }
     
+    getRegistroByEmp(emp:string, llave:string):Observable<any[]>{
+        this.registrosRef = this.afs.collection<any>('registros', 
+            ref => ref.where('empleado','==',emp).where('llave', '==', llave));
+        this.registros$ = this.registrosRef.snapshotChanges()
+        .map(actions => {
+            return actions.map(action => {
+                const d = action.payload.doc;
+                const item = d.data();
+                item.id = d.id;
+                return item;
+            });
+        });
+        return this.registros$;
+    }
+
     addRegistro(o:any):Promise<any>{
+        this.registrosRef = this.afs.collection<any>('registros'); 
         return this.registrosRef.add({...o});
     }
     

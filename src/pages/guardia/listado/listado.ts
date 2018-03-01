@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-import { ApplicationService } from '../../../app/shared/services/application.service';
-import { GlobalService } from '../../../app/shared/services/global.service';
-import { FirebaseService } from '../../../app/shared/services/firebase.service';
+import { ApplicationService } from '../../../shared/services/application.service';
+import { GlobalService } from '../../../shared/services/global.service';
+import { FirebaseService } from '../../../shared/services/firebase.service';
+import { Registro } from '../../../shared/entities/registro';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -12,7 +13,7 @@ import 'rxjs/add/operator/map';
   templateUrl: 'listado.html'
 })
 export class ListadoPage implements OnInit {
-  registros$: Observable<any[]>;
+  registros$: Observable<Registro[]>;
   criteria:string;
   private sdEmp:string = 'desc';
   private sdLlave:string = 'desc';

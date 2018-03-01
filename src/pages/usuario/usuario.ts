@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform, AlertController, IonicPage } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { ApplicationService } from '../../app/shared/services/application.service';
+import { ApplicationService } from '../../shared/services/application.service';
+import { FirebaseService } from '../../shared/services/firebase.service';
+import { GlobalService } from '../../shared/services/global.service';
 
 @IonicPage()
 @Component({
@@ -9,20 +11,23 @@ import { ApplicationService } from '../../app/shared/services/application.servic
   templateUrl: 'usuario.html'
 })
 export class UsuarioPage implements OnInit {
-  userInfo = { legajo: "U506713", nombre: "Pablo Alberto", apellido: "Massad", llave: "" };
+  userInfo = { legajo: "U506713", nombre: "Pablo", apellido: "Massad", llave: "" };
   qrUser = null;
 
   constructor(
     private barcodeScanner: BarcodeScanner,
     private appSrv: ApplicationService,
+    private globalSrv: GlobalService,
     private alertCtrl: AlertController,
-    private platform: Platform
+    private platform: Platform,
+    private fs:FirebaseService
   ) {
     console.log('UsuarioPage constructor');
   }
   ngOnInit() {
     console.log('UsuarioPage init');
     //this.userInfo = this.usrSrv.getUser();
+    //this.userInfo.legajo = this.globalSrv.usuario;
     this.qrUser = JSON.stringify(this.userInfo);
   }
 

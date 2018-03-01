@@ -10,7 +10,7 @@ import { FirebaseService } from './services/firebase.service';
 
 import { HighlightDirective } from './directives/highlight.directive';
 import { TelNumDirective } from './directives/tel-num.directive';
-import { HttpIntercept } from './http.interceptor';
+import { HttpIntercept } from './services/http.interceptor';
 
 @NgModule({
   imports: [

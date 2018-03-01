@@ -15,7 +15,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { MyApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 
-import { SharedModule } from './shared/shared.module';
+import { SharedModule } from '../shared/shared.module';
 import { UsuarioModule } from '../pages/usuario/usuario.module';
 import { GuardiaModule } from '../pages/guardia/guardia.module';
 import { AdminModule } from '../pages/admin/admin.module';

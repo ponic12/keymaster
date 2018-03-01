@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-import { ApplicationService } from '../../app/shared/services/application.service';
+import { ApplicationService } from '../../shared/services/application.service';
+import { GlobalService } from '../../shared/services/global.service';
 
 declare const FCMPlugin: any;
 
@@ -15,6 +16,7 @@ export class LoginPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     private platform: Platform,
+    private globalSrv: GlobalService,
     private appSrv: ApplicationService
   ) {
     console.log('LoginPage constructor');
@@ -24,18 +26,19 @@ export class LoginPage implements OnInit {
   }
   ///////////////////////////////////////////////////////////////////  
   login(): void {
-    var usr = this.username.toLowerCase();
+    var usr = this.username.toUpperCase();
     switch (usr) {
-      case "u000000":
+      case "U000000":
         this.navCtrl.push('GuardiaPage', {});
         break;
-      case "u111111":
+      case "U111111":
         this.navCtrl.push('AdminPage', {});
         break;
       default:
         this.navCtrl.push('UsuarioPage', {});
         break;
     }
+    this.globalSrv.usuario = usr;
     this.initFCM(usr);
   }
   private initFCM(usr) {

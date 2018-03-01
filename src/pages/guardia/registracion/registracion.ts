@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, Platform, AlertController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { ApplicationService } from '../../../app/shared/services/application.service';
-import { FirebaseService } from '../../../app/shared/services/firebase.service';
-import { Registro } from '../../entities/registro';
+import { ApplicationService } from '../../../shared/services/application.service';
+import { FirebaseService } from '../../../shared/services/firebase.service';
+import { Registro } from '../../../shared/entities/registro';
 
 //import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 //     preferFrontCamera : true, // iOS and Android
@@ -24,7 +24,7 @@ import { Registro } from '../../entities/registro';
 })
 export class RegistracionPage implements OnInit {
   userInfo = { legajo: '', nombre: '', apellido: '', llave: '' };
-  reg:Registro;
+  reg: Registro;
   qrUser = null;
   iconType = "pm-output";
   operation = "Registro de llave";
@@ -48,9 +48,9 @@ export class RegistracionPage implements OnInit {
     if (this.platform.is('cordova')) {
       this.barcodeScanner.scan().then(barcodeData => {
         var obj = JSON.parse(barcodeData.text);
-        
+
         this.userInfo = obj;
-        
+
         if (obj.llave) {
           this.iconType = "pm-input";
           this.operation = "Devolucion llave";
@@ -95,6 +95,7 @@ export class RegistracionPage implements OnInit {
           console.log("New reg ID: ", docRef.id);
           vm.reg.id = docRef.id;
           vm.appSrv.message('Informacion', 'Llave ' + vm.userInfo.llave + ' registrada al usuario: ' + vm.userInfo.legajo);
+          this.blankRec();
         })
         .catch(function (error) {
           console.error("Error Adding mov: ", error);
@@ -104,8 +105,8 @@ export class RegistracionPage implements OnInit {
       this.reg.hora_dev = new Date().getTime();
       this.fs.updateRegistro(this.reg);
       this.appSrv.message('Informacion', 'Llave ' + this.userInfo.llave + ' devuelta por el usuario: ' + this.userInfo.legajo);
+      this.blankRec();
     }
-    this.blankRec();
   }
 
   private blankRec() {

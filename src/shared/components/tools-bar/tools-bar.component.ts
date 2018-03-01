@@ -20,8 +20,6 @@ export class ToolsBarComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.globalSrv.safOpsCounter.subscribe(x =>
-      this.safOpsCounter = x);
     this.globalSrv.alertsCounter.subscribe(x =>
       this.alertsCounter = x);
     this.globalSrv.networkStatus.subscribe(x => {
