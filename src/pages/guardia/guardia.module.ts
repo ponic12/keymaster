@@ -11,9 +11,11 @@ import { GuardiaPage } from './guardia';
 import { RegistracionPage } from './registracion/registracion';
 import { ListadoPage } from './listado/listado';
 import { FilterReg } from './listado/filterReg.pipe';
+import { Registro } from '../entities/registro';
 
 @NgModule({
   imports: [
+    Registro,
     SharedModule,
     NgxQRCodeModule,
     IonicPageModule.forChild(GuardiaPage),

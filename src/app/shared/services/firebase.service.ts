@@ -36,11 +36,11 @@ export class FirebaseService {
         return this.registros$;
     }
     
-    addMovement(o:any):Promise<any>{
+    addRegistro(o:any):Promise<any>{
         return this.registrosRef.add({...o});
     }
     
-    updateMovement(o):void {
+    updateRegistro(o):void {
         var u = this.afs.doc<any>('registros/'+o.id);
         u.update(Object.assign({}, o))
         .then(function() {
@@ -51,7 +51,7 @@ export class FirebaseService {
         });
     }
     
-    deleteMovement(o):void {
+    deleteRegistro(o):void {
         this.registrosRef.doc(o.id).delete()
         .then(function() {
             console.log("Delete reg ok");
