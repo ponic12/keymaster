@@ -1,31 +1,29 @@
 <ion-content class="backKM">
-  <ion-item>
-    <ion-label>
-      <ion-icon name="search"></ion-icon>
-    </ion-label>
-    <ion-input clearInput type="text" [(ngModel)]="criteria" clearInput placeholder="Buscar" required></ion-input>
+  <ion-item icon-left class="searchBar">
+    <ion-label><ion-icon name="search"></ion-icon></ion-label>
+    <ion-input clearInput type="text" [(ngModel)]="criteria" placeholder="Criterio de busqueda"></ion-input>
   </ion-item>
 
-  <ion-grid class="histGrid">
-    <ion-row>
-      <ion-col col-3 text-center class="titleGrid" >
+  <ion-grid class="gridFrame">
+    <ion-row class="gridHeader">
+      <ion-col col-3 text-center class="headerCell" >
         <h6>Reg</h6>
       </ion-col>
-      <ion-col col-3 text-center class="titleGrid">
+      <ion-col col-3 text-center class="headerCell">
         <h6>Dev</h6>
       </ion-col>
-      <ion-col col-3 text-center class="titleGrid" (click)="sortByKey()">
+      <ion-col col-3 text-center class="headerCell" (click)="sortByLlave()">
         <h6>Llave</h6>
       </ion-col>
-      <ion-col col-3 text-center class="titleGrid" (click)="sortByEmp()">
+      <ion-col col-3 text-center class="headerCell" (click)="sortByEmp()">
         <h6>Legajo</h6>
       </ion-col>
     </ion-row>
-    <ion-row class="rowHist" *ngFor="let hist of registros$ | async | filterReg:criteria">
-      <ion-col text-center col-3 class="cell">{{hist.reg}}</ion-col>
-      <ion-col text-center col-3 class="cell">{{hist.dev}}</ion-col>
-      <ion-col text-center col-3 class="cell">{{hist.key}}</ion-col>
-      <ion-col text-center col-3 class="cell">{{hist.legajo}}</ion-col>
+    <ion-row class="gridRow" *ngFor="let reg of registros$ | async | filterReg:criteria">
+      <ion-col text-center col-3 class="cell">{{reg.hora_reg | date:'HH:mm'}}</ion-col>
+      <ion-col text-center col-3 class="cell">{{reg.hora_dev | date:'HH:mm'}}</ion-col>
+      <ion-col text-center col-3 class="cell">{{reg.llave}}</ion-col>
+      <ion-col text-center col-3 class="cell">{{reg.empleado}}</ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>
