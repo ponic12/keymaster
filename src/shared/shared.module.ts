@@ -1,9 +1,12 @@
 import { NgModule, ModuleWithProviders } from '@angular/core';
+import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { IonicStorageModule } from '@ionic/storage';
+import { HttpClientModule } from '@angular/common/http';
 
 import { ApplicationService } from './services/application.service';
 import { StorageService } from './services/storage.service';
 import { GlobalService } from './services/global.service';
+import { HttpIntercept } from './services/http.interceptor';
 import { FirebaseService } from './services/firebase.service';
 
 import { HighlightDirective } from './directives/highlight.directive';
@@ -33,9 +36,12 @@ export class SharedModule {
       providers: [
         ApplicationService, 
         StorageService, 
-        FirebaseService,
-        GlobalService
-      ]
+        GlobalService,
+        {
+          provide: HTTP_INTERCEPTORS,
+          useClass: HttpIntercept,
+          multi: true,
+        }]
     };
   }
 }

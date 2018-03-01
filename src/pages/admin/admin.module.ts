@@ -4,7 +4,6 @@ import { IonicPageModule } from 'ionic-angular';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
-import { SharedModule } from '../../shared/shared.module';
 import { AdminService } from './admin.service';
 import { AdminPage } from './admin';
 
@@ -14,7 +13,6 @@ import { InventarioPage } from './inventario/inventario';
 
 @NgModule({
   imports: [
-    SharedModule,
     NgxQRCodeModule,
     IonicPageModule.forChild(AdminPage),
   ],

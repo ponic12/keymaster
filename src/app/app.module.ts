@@ -39,8 +39,8 @@ export const firebaseConfig ={
     UsuarioModule,
     GuardiaModule,
     AdminModule,
-    SharedModule,
     BrowserModule,
+    SharedModule.forRoot(),
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule.enablePersistence()

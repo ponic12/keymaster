@@ -38,7 +38,7 @@ export class LoginPage implements OnInit {
         this.navCtrl.push('UsuarioPage', {});
         break;
     }
-    this.globalSrv.usuario = usr;
+    this.globalSrv.userId = usr;
     this.initFCM(usr);
   }
   private initFCM(usr) {

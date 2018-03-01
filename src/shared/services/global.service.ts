@@ -16,7 +16,7 @@ export class GlobalService {
         {reg:'09:15',dev:'12:20', key:'202', legajo:'u5242321' }
       ];
 
-    usuario:string = '';
+    userId:string = '';
       
     private usr = new BehaviorSubject<any>({});
     user = this.usr.asObservable();

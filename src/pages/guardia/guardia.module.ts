@@ -4,7 +4,6 @@ import { IonicPageModule } from 'ionic-angular';
 import { NgxQRCodeModule } from 'ngx-qrcode2';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 
-import { SharedModule } from '../../shared/shared.module';
 import { GuardiaService } from './guardia.service';
 import { GuardiaPage } from './guardia';
 
@@ -14,7 +13,6 @@ import { FilterReg } from './listado/filterReg.pipe';
 
 @NgModule({
   imports: [
-    SharedModule,
     NgxQRCodeModule,
     IonicPageModule.forChild(GuardiaPage),
   ],

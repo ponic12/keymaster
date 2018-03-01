@@ -27,7 +27,7 @@ export class UsuarioPage implements OnInit {
   ngOnInit() {
     console.log('UsuarioPage init');
     //this.userInfo = this.usrSrv.getUser();
-    //this.userInfo.legajo = this.globalSrv.usuario;
+    this.userInfo.legajo = this.globalSrv.userId;
     this.qrUser = JSON.stringify(this.userInfo);
   }
 
