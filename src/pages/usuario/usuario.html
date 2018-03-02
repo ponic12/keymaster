@@ -16,7 +16,7 @@
     </ion-item>
   </ion-card>
 
-  <ion-row>
+  <ion-row *ngIf="networkStatus == false">
     <ion-col style="text-align:center">
       <button ion-button icon-left (click)="confirm()" class="btnAction">
         <ion-icon name="qr-scanner"></ion-icon>Confirmar

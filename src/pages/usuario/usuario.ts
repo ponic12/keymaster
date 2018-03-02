@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgZone } from '@angular/core';
 import { Platform, AlertController, IonicPage } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ApplicationService } from '../../shared/services/application.service';
@@ -13,6 +13,7 @@ import { GlobalService } from '../../shared/services/global.service';
 export class UsuarioPage implements OnInit {
   userInfo = { legajo: "U506713", nombre: "Pablo", apellido: "Massad", llave: "" };
   qrUser = null;
+  networkStatus:boolean;
 
   constructor(
     private barcodeScanner: BarcodeScanner,
@@ -20,15 +21,21 @@ export class UsuarioPage implements OnInit {
     private globalSrv: GlobalService,
     private alertCtrl: AlertController,
     private platform: Platform,
-    private fs:FirebaseService
+    private fs:FirebaseService,
+    private zone:NgZone
   ) {
     console.log('UsuarioPage constructor');
   }
   ngOnInit() {
     console.log('UsuarioPage init');
-    //this.userInfo = this.usrSrv.getUser();
     this.userInfo.legajo = this.globalSrv.userId;
     this.qrUser = JSON.stringify(this.userInfo);
+    this.globalSrv.networkStatus.subscribe(x => {
+      this.zone.run(() => {
+        this.networkStatus = x;
+      });
+      console.log('networkStatus: ', this.networkStatus);
+    });
   }
 
   confirm() { // ONLY OFFLINE

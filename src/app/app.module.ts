@@ -8,6 +8,7 @@ import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AngularFireAuthModule } from 'angularfire2/auth';
 
+import { Network } from '@ionic-native/network';
 import { Camera } from '@ionic-native/camera';
 import { Flashlight } from '@ionic-native/flashlight';
 import { Geolocation } from '@ionic-native/geolocation';
@@ -51,6 +52,7 @@ export const firebaseConfig ={
     LoginPage
   ],
   providers: [
+    Network,
     StatusBar,
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},

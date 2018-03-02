@@ -19,19 +19,10 @@ export class HttpIntercept implements HttpInterceptor {
 
     intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         let as = this.as;
-        
-        var head = {};
-        // if (this.globalSrv.demoMode == "1")
-        //     head = { headers: req.headers.set("demo", this.globalSrv.demoMode) };
-
-        head = { headers: req.headers.set("fecha", new Date().getTime().toString()) };
-        
-        // Clone the request to add the new header.
-        // const authReq = req.clone({ headers: req.headers.set("headerName", "headerValue") });    
-        var authReq = req.clone(head);
+    
         as.showLoading();
         //send the newly created request
-        return next.handle(authReq)
+        return next.handle(req)
             .map(resp => {
                 console.log("Response:" + JSON.stringify(resp));
                 return resp;
