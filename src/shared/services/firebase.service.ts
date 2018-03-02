@@ -8,10 +8,27 @@ import 'rxjs/add/operator/map';
 export class FirebaseService {
     registrosRef: AngularFirestoreCollection<any>;
     registros$: Observable<any[]>;
-
+    
+    llavesRef: AngularFirestoreCollection<any>;
+    llaves$: Observable<any[]>;
         
     constructor(private afs:AngularFirestore){
         console.log('FirebaseService constructor');
+    }
+
+    getLlaves():Observable<any[]>{
+        this.llavesRef = this.afs.collection<any>('llaves', 
+            ref => ref.where('disponible','==', true).orderBy('nombre', 'asc'));
+        this.llaves$ = this.llavesRef.snapshotChanges()
+        .map(actions => {
+            return actions.map(action => {
+                const d = action.payload.doc;
+                const item = d.data();
+                item.id = d.id;
+                return item;
+            });
+        });
+        return this.llaves$;
     }
 
     getRegistrosByFecha(fecha:number, sortName, sortDir):Observable<any[]>{

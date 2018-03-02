@@ -11,8 +11,9 @@ export class FilterReg implements PipeTransform {
             //var reg = item.hora_reg.toLowerCase().includes(criteria.toLowerCase());
             //var dev = item.hora_dev.toLowerCase().includes(criteria.toLowerCase());
             var ll = item.llave.toLowerCase().includes(criteria.toLowerCase());
-            var uid = item.empleado.toLowerCase().includes(criteria.toLowerCase());
-            return ( ll || uid );
+            var ur = item.emp_reg.toLowerCase().includes(criteria.toLowerCase());
+            var ud = item.emp_dev.toLowerCase().includes(criteria.toLowerCase());
+            return ( ll || ur || ud );
         });
     }
 }

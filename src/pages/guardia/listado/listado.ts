@@ -4,6 +4,7 @@ import { ApplicationService } from '../../../shared/services/application.service
 import { GlobalService } from '../../../shared/services/global.service';
 import { FirebaseService } from '../../../shared/services/firebase.service';
 import { Registro } from '../../../shared/entities/registro';
+import { Llave } from '../../../shared/entities/llave';
 
 import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
@@ -14,6 +15,7 @@ import 'rxjs/add/operator/map';
 })
 export class ListadoPage implements OnInit {
   registros$: Observable<Registro[]>;
+
   criteria:string;
   private sdEmp:string = 'desc';
   private sdLlave:string = 'desc';

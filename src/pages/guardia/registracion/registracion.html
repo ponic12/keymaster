@@ -31,6 +31,21 @@
             <ion-label>Llave:</ion-label>
             <ion-input type="text" [(ngModel)]="userInfo.llave" (input)='onKeyChange($event.target.value)'></ion-input>
           </ion-item>
+          <ion-item>
+            <ion-searchbar (ionInput)="getLlaves($event)"></ion-searchbar>
+            <ion-list>
+              <ion-item *ngFor="let ll of llaves | async">
+                <ion-row>
+                  <ion-col col-3>
+                    {{ ll.nombre }}
+                  </ion-col>
+                  <ion-col col-3>
+                    {{ ll.descripcion }}
+                  </ion-col>
+                </ion-row>
+              </ion-item>
+            </ion-list>
+          </ion-item>
         </ion-card>
       </ion-col>
       <button ion-button icon-left (click)="scanKey()" class="qrScanner">

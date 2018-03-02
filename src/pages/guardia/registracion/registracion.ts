@@ -4,6 +4,10 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ApplicationService } from '../../../shared/services/application.service';
 import { FirebaseService } from '../../../shared/services/firebase.service';
 import { Registro } from '../../../shared/entities/registro';
+import { Llave } from '../../../shared/entities/llave';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
 
 //import { BarcodeScannerOptions } from '@ionic-native/barcode-scanner';
 //     preferFrontCamera : true, // iOS and Android
@@ -23,6 +27,7 @@ import { Registro } from '../../../shared/entities/registro';
   templateUrl: 'registracion.html'
 })
 export class RegistracionPage implements OnInit {
+  llaves$: Observable<Llave[]>;
   userInfo = { legajo: '', nombre: '', apellido: '', llave: '' };
   reg: Registro;
   qrUser = null;
@@ -42,8 +47,20 @@ export class RegistracionPage implements OnInit {
   ngOnInit() {
     console.log('RegistracionPage init');
     this.reg = new Registro();
+    this.llaves$ = this.fs.getLlaves();
   }
 
+  getLlaves(ev: any) {
+    // Reset items back to all of the items
+    //this.initializeItems();
+
+    let val = ev.target.value;
+    if (val && val.trim() != '') {
+      this.llaves$ = this.llaves$.filter((item) => {
+        return (item['nombre'].toLowerCase().indexOf(val.toLowerCase()) > -1);
+      })
+    }
+  }
   scanUser() {
     if (this.platform.is('cordova')) {
       this.barcodeScanner.scan().then(barcodeData => {
