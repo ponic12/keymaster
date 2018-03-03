@@ -17,7 +17,8 @@ export class ListadoPage implements OnInit {
   registros$: Observable<Registro[]>;
 
   criteria:string;
-  private sdEmp:string = 'desc';
+  private sdEmpReg:string = 'desc';
+  private sdEmpDev:string = 'desc';
   private sdLlave:string = 'desc';
 
   constructor(
@@ -36,9 +37,13 @@ export class ListadoPage implements OnInit {
     this.sdLlave = this.toggleSortDir(this.sdLlave);
     this.registros$ = this.fs.getRegistrosByFecha(new Date().getTime(), 'llave',this.sdLlave);
   }
-  sortByEmp(){
-    this.sdEmp = this.toggleSortDir(this.sdEmp);
-    this.registros$ = this.fs.getRegistrosByFecha(new Date().getTime(), 'empleado',this.sdEmp);
+  sortByEmpReg(){
+    this.sdEmpReg = this.toggleSortDir(this.sdEmpReg);
+    this.registros$ = this.fs.getRegistrosByFecha(new Date().getTime(), 'emp_reg',this.sdEmpReg);
+  }
+  sortByEmpDev(){
+    this.sdEmpDev = this.toggleSortDir(this.sdEmpDev);
+    this.registros$ = this.fs.getRegistrosByFecha(new Date().getTime(), 'emp_dev',this.sdEmpDev);
   }
 
 

@@ -1,9 +1,9 @@
 export class Registro {
-    id?:string;
-    empleado:string;
-    hora_dev?:number = new Date().getTime();
-    hora_reg:number = new Date().getTime();
-    llave:string;
-  }
-  
-  
+  id?: string;
+  llave: string;
+  hora_reg: number = new Date().getTime();
+  emp_reg: string;
+  hora_dev?: number = new Date().getTime();
+  emp_dev?: string;
+}
+

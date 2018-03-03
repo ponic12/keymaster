@@ -3,7 +3,7 @@ import { NavController, Platform, AlertController } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ApplicationService } from '../../../shared/services/application.service';
 import { FirebaseService } from '../../../shared/services/firebase.service';
-import { Registro } from '../../../shared/entities/registro';
+import { Empleado } from '../../../shared/entities/empleado';
 import { Llave } from '../../../shared/entities/llave';
 
 import { Observable } from 'rxjs/Observable';
@@ -29,10 +29,11 @@ import 'rxjs/add/operator/map';
 export class RegistracionPage implements OnInit {
   llaves$: Observable<Llave[]>;
   userInfo = { legajo: '', nombre: '', apellido: '', llave: '' };
-  reg: Registro;
   qrUser = null;
   iconType = "pm-output";
   operation = "Registro de llave";
+  disableInfo = false;
+  disableKey = false;
 
   constructor(
     public navCtrl: NavController,
@@ -46,8 +47,7 @@ export class RegistracionPage implements OnInit {
   }
   ngOnInit() {
     console.log('RegistracionPage init');
-    this.reg = new Registro();
-    this.llaves$ = this.fs.getLlaves();
+    this.llaves$ = this.fs.getLlavesDisponibles(true);
   }
 
   getLlaves(ev: any) {
@@ -65,10 +65,10 @@ export class RegistracionPage implements OnInit {
     if (this.platform.is('cordova')) {
       this.barcodeScanner.scan().then(barcodeData => {
         var obj = JSON.parse(barcodeData.text);
-
         this.userInfo = obj;
-
+        this.disableInfo = true;
         if (obj.llave) {
+          this.disableKey = true;
           this.iconType = "pm-input";
           this.operation = "Devolucion llave";
           this.userInfo.llave = obj.llave;
@@ -90,6 +90,7 @@ export class RegistracionPage implements OnInit {
       this.barcodeScanner.scan().then(barcodeData => {
         this.userInfo.llave = JSON.parse(barcodeData.text);
         this.qrUser = JSON.stringify(this.userInfo);
+        this.disableKey = true;
       })
     } else {
       this.appSrv.message('Error', 'QR no disponible en web');
@@ -101,33 +102,32 @@ export class RegistracionPage implements OnInit {
   }
   callServer() {
     var vm = this;
-    vm.reg = this.reg;
-    vm.reg.empleado = this.userInfo.legajo;
-    vm.reg.llave = this.userInfo.llave;
-    vm.reg.hora_reg = new Date().getTime();
-
-    if (!this.reg['id']) {  // Registro LLave
-      this.fs.addRegistro(this.reg)
-        .then(function (docRef) {
-          console.log("New reg ID: ", docRef.id);
-          vm.reg.id = docRef.id;
-          vm.appSrv.message('Informacion', 'Llave ' + vm.userInfo.llave + ' registrada al usuario: ' + vm.userInfo.legajo);
-          this.blankRec();
-        })
-        .catch(function (error) {
-          console.error("Error Adding mov: ", error);
-        });
+    if (this.iconType == "pm-input"){
+      this.fs.register(this.userInfo)
+      .then(function (docRef) {
+        console.log("New reg ID: ", docRef.id);
+        vm.appSrv.message('Informacion', 'Llave ' + vm.userInfo.llave + ' registrada al usuario: ' + vm.userInfo.legajo);
+        this.blankRec();
+      })
+      .catch(function (error) {
+        console.error("Error registering: ", error);
+      });
     }
-    else { // Devolucion LLave
-      this.reg.hora_dev = new Date().getTime();
-      this.fs.updateRegistro(this.reg);
-      this.appSrv.message('Informacion', 'Llave ' + this.userInfo.llave + ' devuelta por el usuario: ' + this.userInfo.legajo);
-      this.blankRec();
+    else{
+      this.fs.unregister(this.userInfo)
+      .then(function(){
+        vm.appSrv.message('Informacion', 'Llave ' + vm.userInfo.llave + ' devuelta por el usuario: ' + vm.userInfo.legajo);
+        vm.blankRec();    
+      })
+      .catch(function (error) {
+        console.error("Error unregistering: ", error);
+      });      
     }
   }
 
   private blankRec() {
-    this.reg = new Registro();
+    this.disableInfo = false;
+    this.disableKey = false;
   }
 }
 

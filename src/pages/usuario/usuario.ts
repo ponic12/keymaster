@@ -4,6 +4,7 @@ import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ApplicationService } from '../../shared/services/application.service';
 import { FirebaseService } from '../../shared/services/firebase.service';
 import { GlobalService } from '../../shared/services/global.service';
+import { Registro } from '../../shared/entities/registro';
 
 @IonicPage()
 @Component({
@@ -11,6 +12,7 @@ import { GlobalService } from '../../shared/services/global.service';
   templateUrl: 'usuario.html'
 })
 export class UsuarioPage implements OnInit {
+  reg: Registro;
   userInfo = { legajo: "U506713", nombre: "Pablo", apellido: "Massad", llave: "" };
   qrUser = null;
   networkStatus:boolean;
@@ -37,7 +39,41 @@ export class UsuarioPage implements OnInit {
       console.log('networkStatus: ', this.networkStatus);
     });
   }
-
+  transfer(){
+    if (this.platform.is('cordova')) {
+      this.barcodeScanner.scan().then(barcodeData => {
+        var obj = JSON.parse(barcodeData.text);
+        if (obj) {
+          let alert = this.alertCtrl.create({
+            title: 'Transferencia',
+            message: '¿Confirma transferir llave '+obj.llave + ' al empleado '+obj.legajo+'?',
+            buttons: [
+              {
+                text: 'Cancelar',
+                role: 'cancel',
+                handler: () => {
+                  console.log('Cancela transferencia');
+                }
+              },
+              {
+                text: 'Aceptar',
+                handler: () => {
+                  this.fs.transfer(this.userInfo, obj);
+                  console.log('Transferencia de llave');
+                }
+              }
+            ]
+          });
+          alert.present();         
+        }
+        else
+          this.appSrv.message('Error', 'No se dectecto codigo QR');
+      })
+    } else {
+      this.appSrv.message('Error', 'QR no disponible en web');
+      console.log('Scan of QR not supported in browser....');
+    }    
+  }
   confirm() { // ONLY OFFLINE
     if (this.platform.is('cordova')) {
       this.barcodeScanner.scan().then(barcodeData => {
