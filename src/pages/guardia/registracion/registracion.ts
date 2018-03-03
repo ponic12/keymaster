@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Platform, AlertController } from 'ionic-angular';
+import { NavController, Platform } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ApplicationService } from '../../../shared/services/application.service';
 import { FirebaseService } from '../../../shared/services/firebase.service';
@@ -28,17 +28,16 @@ import 'rxjs/add/operator/map';
 })
 export class RegistracionPage implements OnInit {
   llaves$: Observable<Llave[]>;
-  userInfo = { legajo: '', nombre: '', apellido: '', llave: '' };
+  userInfo:Empleado = { legajo: '', nombre: '', apellido: '', llave: '' };
   qrUser = null;
   iconType = "pm-output";
   operation = "Registro de llave";
-  disableInfo = false;
-  disableKey = false;
+  disabledInfo:boolean = false;
+  disabledKey:boolean = false;
 
   constructor(
     public navCtrl: NavController,
     private appSrv: ApplicationService,
-    private alertCtrl: AlertController,
     private barcodeScanner: BarcodeScanner,
     private platform: Platform,
     private fs: FirebaseService
@@ -66,9 +65,9 @@ export class RegistracionPage implements OnInit {
       this.barcodeScanner.scan().then(barcodeData => {
         var obj = JSON.parse(barcodeData.text);
         this.userInfo = obj;
-        this.disableInfo = true;
+        this.disabledInfo = true;
         if (obj.llave) {
-          this.disableKey = true;
+          this.disabledKey = true;
           this.iconType = "pm-input";
           this.operation = "Devolucion llave";
           this.userInfo.llave = obj.llave;
@@ -90,7 +89,7 @@ export class RegistracionPage implements OnInit {
       this.barcodeScanner.scan().then(barcodeData => {
         this.userInfo.llave = JSON.parse(barcodeData.text);
         this.qrUser = JSON.stringify(this.userInfo);
-        this.disableKey = true;
+        this.disabledKey = true;
       })
     } else {
       this.appSrv.message('Error', 'QR no disponible en web');
@@ -102,7 +101,7 @@ export class RegistracionPage implements OnInit {
   }
   callServer() {
     var vm = this;
-    if (this.iconType == "pm-input"){
+    if (this.iconType == "pm-output"){
       this.fs.register(this.userInfo)
       .then(function (docRef) {
         console.log("New reg ID: ", docRef.id);
@@ -126,8 +125,8 @@ export class RegistracionPage implements OnInit {
   }
 
   private blankRec() {
-    this.disableInfo = false;
-    this.disableKey = false;
+    this.disabledInfo = false;
+    this.disabledKey = false;
   }
 }
 

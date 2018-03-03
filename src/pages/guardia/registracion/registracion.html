@@ -5,19 +5,19 @@
         <ion-card style="padding:10px">
           <ion-item>
             <ion-label>Legajo:</ion-label>
-            <ion-input type="text" [(ngModel)]="userInfo.legajo" (input)='onKeyChange($event.target.value)' [disabled]="disableInfo"></ion-input>
+            <ion-input type="text" [(ngModel)]="userInfo.legajo" (input)='onKeyChange($event.target.value)' [disabled]="disabledInfo"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>Nombre:</ion-label>
-            <ion-input type="text" [(ngModel)]="userInfo.nombre" [disabled]="disableInfo"></ion-input>
+            <ion-input type="text" [(ngModel)]="userInfo.nombre" [disabled]="disabledInfo"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>Apellido:</ion-label>
-            <ion-input type="text" [(ngModel)]="userInfo.apellido" [disabled]="disableInfo"></ion-input>
+            <ion-input type="text" [(ngModel)]="userInfo.apellido" [disabled]="disabledInfo"></ion-input>
           </ion-item>
           <ion-item>
             <ion-label>Mail:</ion-label>
-            <ion-input type="text" [(ngModel)]="userInfo.mail" [disabled]="disableInfo"></ion-input>
+            <ion-input type="text" [(ngModel)]="userInfo.mail" [disabled]="disabledInfo"></ion-input>
           </ion-item>          
           <!-- <ion-avatar item-start>
                   <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-buzz.png">
@@ -33,10 +33,10 @@
         <ion-card style="padding:10px">
           <ion-item>
             <ion-label>Llave:</ion-label>
-            <ion-input type="text" [(ngModel)]="userInfo.llave" (input)='onKeyChange($event.target.value)'></ion-input>
+            <ion-input type="text" [(ngModel)]="userInfo.llave" (input)='onKeyChange($event.target.value)' [disabled]="disabledKey"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-searchbar (ionInput)="getLlaves($event)" [disabled]="disableKey"></ion-searchbar>
+            <ion-searchbar (ionInput)="getLlaves($event)" [disabled]="disabledKey"></ion-searchbar>
             <ion-list>
               <ion-item *ngFor="let ll of llaves | async">
                 <ion-row>
