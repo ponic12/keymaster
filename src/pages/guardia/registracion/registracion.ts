@@ -114,7 +114,7 @@ export class RegistracionPage implements OnInit {
       .then(function (docRef) {
         console.log("New reg ID: ", docRef.id);
         vm.appSrv.message('Informacion', 'Llave ' + vm.userInfo.llave + ' registrada al usuario: ' + vm.userInfo.legajo);
-        this.blankRec();
+        vm.blankRec();
       })
       .catch(function (error) {
         console.error("Error registering: ", error);

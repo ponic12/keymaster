@@ -18,59 +18,24 @@ exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(
     var oldDoc = info.previous;
     var oldVal = oldDoc.data();
     var newVal = {};
-    try{
+    try {
         newVal = info.data();
     }
-    catch(e){
+    catch (e) {
         console.log('reg delete: ', oldVal);
     }
-    if (newVal){
-        if (oldVal){
+    if (newVal) {
+        if (oldVal) { // DEVOLUCION
             console.log('reg update (Devolucion): ', newVal);
             var r = llaveDisponible(newVal.llave, true);
-            var target = "/topics/"+ newVal.emp_dev;
-            var msg = {
-                to:target,
-                priority:'high',
-                // collapseKey :'',
-                // restrictedPackageName: "somePackageName",
-                // dryRun: true,
-                // contentAvailable: true,
-                // delayWhileIdle: true,
-                timeToLive: 10,
-                notification:{
-                    title:"KeyMaster",
-                    body:"Se ha devuelto la llave "+newVal.llave,
-                    color: "#ffff00",
-                    icon: "default",
-                    //tag: "text",
-                    click_action: "FCM_PLUGIN_ACTIVITY",
-                    sound: "default"
-                },
-                data :{type:"devolucion"} 
-            };
-            var x = sendMessageToUser(newVal.emp_dev, msg);
+            var c = copyToHistorico(newVal);
+            var p = sendMessageToUser(newVal, "Se ha devuelto la llave " + newVal.llave, "devolucion");
+            var z = removeRegistro(newVal,rid);
         }
-        else{
+        else {  // REGISTRO  
             console.log('reg add (Registro): ', newVal);
             var r = llaveDisponible(newVal.llave, false);
-            var target = "/topics/"+ newVal.emp_reg;
-            var msg = {
-                to:target,
-                priority:'high',
-                timeToLive: 10,
-                notification:{
-                    title:"KeyMaster",
-                    body:"Se ha devuelto la llave "+newVal.llave,
-                    color: "#ffff00",
-                    icon: "default",
-                    //tag: "text",
-                    click_action: "FCM_PLUGIN_ACTIVITY",
-                    sound: "default"
-                },
-                data : {type:"Registro"}
-            };
-            var x = sendMessageToUser(newVal.emp_reg, msg);
+            var x = sendMessageToUser(newVal, "Se ha registrado la llave " + newVal.llave, "registro");
         }
     }
     return true;
@@ -79,39 +44,75 @@ exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(
 //////////////////////////////////
 // Private functions
 //////////////////////////////////
-function llaveDisponible(llave, flag){
+function llaveDisponible(llave, flag) {
     var ref = fs.collection('llaves').doc(llave);
     ref.get().then(doc => {
         var ll = doc.data();
+        console.log('ll: ', ll);
         ll.disponible = flag;
         ref.set(ll).then(c => console.log('Llave disponible:', flag));
     })
-    .catch(err =>{
-        console.log('Error: updating key state:', err);
-    });
+        .catch(err => {
+            console.log('Error: updating key state:', err);
+        });
     return ref;
 }
-function sendMessageToUser(deviceId, message) {	
+function sendMessageToUser(val, body, type) {
+    var target = "/topics/" + val.emp_dev;
+    var msg = {
+        to: target,
+        priority: 'high',
+        // collapseKey :'',
+        // restrictedPackageName: "somePackageName",
+        // dryRun: true,
+        // contentAvailable: true,
+        // delayWhileIdle: true,
+        timeToLive: 10,
+        notification: {
+            title: "KeyMaster",
+            body: body,
+            color: "#ffff00",
+            icon: "default",
+            //tag: "text",
+            click_action: "FCM_PLUGIN_ACTIVITY",
+            sound: "default"
+        },
+        data: { type: type }
+    };
     //proxy: proxyCfg.url,
     var res = request({
-      url: 'https://fcm.googleapis.com/fcm/send',
-      method: 'POST',
-      headers: {
-        'Content-Type' :' application/json',
-        'Authorization': 'key=AAAA0_fvtU8:APA91bEH30LTl_1GLw5KtugEb9OJxDvnwWaR0Yrs4aQGCpFFgUu2LqHha1RmJ1DOrW2ufNgYco1ftiT2YyE9vUgQJEf4d_7lRIznkxcXXoBAUEwDuY1sTWXOUiqcdfuXfkMRwK-yN0w5'
-      },
-      body: JSON.stringify(message)
-    }, function(error, response, body) {
-      if (error) { 
-        console.log(error, response, body); 
-      }
-      else if (response.statusCode >= 400) { 
-        console.log('HTTP Error: '+response.statusCode+' - '+response.statusMessage+'\n'+body); 
-      }
-      else {
-        console.log('Push OK to : ', message.to);
-      }
+        url: 'https://fcm.googleapis.com/fcm/send',
+        method: 'POST',
+        headers: {
+            'Content-Type': ' application/json',
+            'Authorization': 'key=AAAA0_fvtU8:APA91bEH30LTl_1GLw5KtugEb9OJxDvnwWaR0Yrs4aQGCpFFgUu2LqHha1RmJ1DOrW2ufNgYco1ftiT2YyE9vUgQJEf4d_7lRIznkxcXXoBAUEwDuY1sTWXOUiqcdfuXfkMRwK-yN0w5'
+        },
+        body: JSON.stringify(msg)
+    }, 
+    function (error, response, body) {
+        if (error) {
+            console.log(error, response, body);
+        }
+        else if (response.statusCode >= 400) {
+            console.log('HTTP Error: ' + response.statusCode + ' - ' + response.statusMessage + '\n' + body);
+        }
+        else {
+            console.log('Push OK to : ', msg.to);
+        }
     });
     return res;
-  }
+}
+function copyToHistorico(val){
+    var refHist = fs.collection('historico').doc(val.id).set(val)
+    .then(c => console.log('Registro copiado a Historico'));
+
+    var refReg = fs.collection('registro').doc(val.id).delete()
+    .then(c => console.log('Registro borrado'));
+    return refReg;
+}
+function removeRegistro(val, rid){
+    var ref = fs.collection('registros').doc(rid);
+    ref.delete();
+    return ref;
+}
 
