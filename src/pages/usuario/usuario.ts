@@ -42,6 +42,7 @@ export class UsuarioPage implements OnInit {
   transfer(){
     if (this.platform.is('cordova')) {
       this.barcodeScanner.scan().then(barcodeData => {
+        if (barcodeData.text == '') return;
         var obj = JSON.parse(barcodeData.text);
         if (obj) {
           let alert = this.alertCtrl.create({
@@ -77,6 +78,7 @@ export class UsuarioPage implements OnInit {
   confirm() { // ONLY OFFLINE
     if (this.platform.is('cordova')) {
       this.barcodeScanner.scan().then(barcodeData => {
+        if (barcodeData.text == '') return;
         var obj = JSON.parse(barcodeData.text);
         if (obj) {
           if (this.userInfo.llave == '')

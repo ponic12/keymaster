@@ -49,20 +49,27 @@ export class RegistracionPage implements OnInit {
     this.llaves$ = this.fs.getLlavesDisponibles(true);
   }
 
-  getLlaves(ev: any) {
+  onInput(ev: any) {
     // Reset items back to all of the items
     //this.initializeItems();
-
     let val = ev.target.value;
     if (val && val.trim() != '') {
-      this.llaves$ = this.llaves$.filter((item) => {
-        return (item['nombre'].toLowerCase().indexOf(val.toLowerCase()) > -1);
+      this.llaves$.subscribe(o=>{
+        o.filter((item) => {
+        var keyname = item['nombre'].toLowerCase();
+        var res = (keyname.indexOf(val.toLowerCase()) > -1);
+        return res;
+        })
       })
     }
+  }
+  onCancel(ev:any){
+    this.userInfo.llave = '';
   }
   scanUser() {
     if (this.platform.is('cordova')) {
       this.barcodeScanner.scan().then(barcodeData => {
+        if (barcodeData.text == '') return;
         var obj = JSON.parse(barcodeData.text);
         this.userInfo = obj;
         this.disabledInfo = true;
@@ -87,6 +94,7 @@ export class RegistracionPage implements OnInit {
   scanKey() {
     if (this.platform.is('cordova')) {
       this.barcodeScanner.scan().then(barcodeData => {
+        if (barcodeData.text == '') return;
         this.userInfo.llave = JSON.parse(barcodeData.text);
         this.qrUser = JSON.stringify(this.userInfo);
         this.disabledKey = true;

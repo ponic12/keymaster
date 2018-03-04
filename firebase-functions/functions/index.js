@@ -10,9 +10,9 @@ admin.initializeApp(functions.config().firebase);
 // exports.helloWorld = functions.https.onRequest((request, response) => {
 //  response.send("Hello from Firebase!");
 // });
+const fs = admin.firestore();
 
 exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(event => {
-    const fs = admin.firestore();
     const rid = event.params.rid;
     var info = event.data;
     var oldDoc = info.previous;
@@ -27,7 +27,8 @@ exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(
     if (newVal){
         if (oldVal){
             console.log('reg update (Devolucion): ', newVal);
-            var target = "/topics/"+ newVal.empleado;
+            var r = llaveDisponible(newVal.llave, true);
+            var target = "/topics/"+ newVal.emp_dev;
             var msg = {
                 to:target,
                 priority:'high',
@@ -48,20 +49,15 @@ exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(
                 },
                 data :{type:"devolucion"} 
             };
-            console.log('msg: ',msg);
-            sendMessageToUser(newVal.empleado, msg);
+            var x = sendMessageToUser(newVal.emp_dev, msg);
         }
         else{
             console.log('reg add (Registro): ', newVal);
-            var target = "/topics/"+ newVal.empleado;
+            var r = llaveDisponible(newVal.llave, false);
+            var target = "/topics/"+ newVal.emp_reg;
             var msg = {
                 to:target,
                 priority:'high',
-                // collapseKey :'',
-                // restrictedPackageName: "somePackageName",
-                // dryRun: true,
-                // contentAvailable: true,
-                // delayWhileIdle: true,
                 timeToLive: 10,
                 notification:{
                     title:"KeyMaster",
@@ -74,19 +70,30 @@ exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(
                 },
                 data : {type:"Registro"}
             };
-            console.log('msg: ',msg);
-            sendMessageToUser(newVal.empleado, msg);
-            //Notify to FCM --> topic = newVal.empleado
+            var x = sendMessageToUser(newVal.emp_reg, msg);
         }
     }
+    return true;
 });
 
 //////////////////////////////////
-// FCM
+// Private functions
 //////////////////////////////////
+function llaveDisponible(llave, flag){
+    var ref = fs.collection('llaves').doc(llave);
+    ref.get().then(doc => {
+        var ll = doc.data();
+        ll.disponible = flag;
+        ref.set(ll).then(c => console.log('Llave disponible:', flag));
+    })
+    .catch(err =>{
+        console.log('Error: updating key state:', err);
+    });
+    return ref;
+}
 function sendMessageToUser(deviceId, message) {	
     //proxy: proxyCfg.url,
-    request({
+    var res = request({
       url: 'https://fcm.googleapis.com/fcm/send',
       method: 'POST',
       headers: {
@@ -96,14 +103,15 @@ function sendMessageToUser(deviceId, message) {
       body: JSON.stringify(message)
     }, function(error, response, body) {
       if (error) { 
-        console.error(error, response, body); 
+        console.log(error, response, body); 
       }
       else if (response.statusCode >= 400) { 
-        console.error('HTTP Error: '+response.statusCode+' - '+response.statusMessage+'\n'+body); 
+        console.log('HTTP Error: '+response.statusCode+' - '+response.statusMessage+'\n'+body); 
       }
       else {
-        console.log('Done!')
+        console.log('Push OK to : ', message.to);
       }
     });
+    return res;
   }
 

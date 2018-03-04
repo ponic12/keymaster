@@ -36,7 +36,13 @@
             <ion-input type="text" [(ngModel)]="userInfo.llave" (input)='onKeyChange($event.target.value)' [disabled]="disabledKey"></ion-input>
           </ion-item>
           <ion-item>
-            <ion-searchbar (ionInput)="getLlaves($event)" [disabled]="disabledKey"></ion-searchbar>
+            <ion-searchbar 
+            showCancelButton=true
+            animated=true
+            [(ngModel)]="userInfo.llave"
+            [disabled]="disabledKey"
+            (ionInput)="onInput($event)"
+            (ionCancel)="onCancel($event)" ></ion-searchbar>
             <ion-list>
               <ion-item *ngFor="let ll of llaves | async">
                 <ion-row>
