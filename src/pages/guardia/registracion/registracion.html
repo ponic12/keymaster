@@ -1,67 +1,56 @@
 <ion-content class="backKM">
   <ion-grid>
     <ion-row>
-      <ion-col>
-        <ion-card style="padding:10px">
-          <ion-item>
-            <ion-label>Legajo:</ion-label>
-            <ion-input type="text" [(ngModel)]="userInfo.legajo" (input)='onKeyChange($event.target.value)' [disabled]="disabledInfo"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Nombre:</ion-label>
-            <ion-input type="text" [(ngModel)]="userInfo.nombre" [disabled]="disabledInfo"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Apellido:</ion-label>
-            <ion-input type="text" [(ngModel)]="userInfo.apellido" [disabled]="disabledInfo"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label>Mail:</ion-label>
-            <ion-input type="text" [(ngModel)]="userInfo.mail" [disabled]="disabledInfo"></ion-input>
-          </ion-item>          
-          <!-- <ion-avatar item-start>
+      <ion-card style="padding:10px">
+        <ion-item>
+          <ion-label>Legajo:</ion-label>
+          <ion-input type="text" [(ngModel)]="userInfo.legajo" (input)='onKeyChange($event.target.value)' [disabled]="disabledInfo"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Nombre:</ion-label>
+          <ion-input type="text" [(ngModel)]="userInfo.nombre" [disabled]="disabledInfo"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Apellido:</ion-label>
+          <ion-input type="text" [(ngModel)]="userInfo.apellido" [disabled]="disabledInfo"></ion-input>
+        </ion-item>
+        <ion-item>
+          <ion-label>Mail:</ion-label>
+          <ion-input type="text" [(ngModel)]="userInfo.mail" [disabled]="disabledInfo"></ion-input>
+        </ion-item>
+        <!-- <ion-avatar item-start>
                   <img src="https://ionicframework.com/dist/preview-app/www/assets/img/avatar-ts-buzz.png">
                 </ion-avatar> -->
-        </ion-card>
-      </ion-col>
+      </ion-card>
       <button ion-button icon-left (click)="scanUser()" class="qrScanner">
         <ion-icon name="qr-scanner" style="margin-left:5px"></ion-icon>
       </button>
     </ion-row>
     <ion-row *ngIf="userInfo.legajo">
-      <ion-col>
-        <ion-card style="padding:10px">
-          <ion-item>
-            <ion-label>Llave:</ion-label>
-            <ion-input type="text" [(ngModel)]="userInfo.llave" (input)='onKeyChange($event.target.value)' [disabled]="disabledKey"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-searchbar 
-            showCancelButton=true
-            animated=true
-            [(ngModel)]="userInfo.llave"
-            [disabled]="disabledKey"
-            (ionInput)="onInput($event)"
-            (ionCancel)="onCancel($event)" ></ion-searchbar>
-            <ion-list>
-              <ion-item *ngFor="let ll of llaves | async">
-                <ion-row>
-                  <ion-col col-3>
-                    {{ ll.nombre }}
-                  </ion-col>
-                  <ion-col col-3>
-                    {{ ll.descripcion }}
-                  </ion-col>
-                </ion-row>
-              </ion-item>
-            </ion-list>
-          </ion-item>
-        </ion-card>
-      </ion-col>
+      <ion-card>
+        <ion-item>
+          <ion-searchbar class="searcher" showCancelButton=true placeholder="Llave" animated="false" [(ngModel)]="userInfo.llave" [disabled]="disabledKey"
+            (ionInput)="onInput($event)" (ionCancel)="onCancel($event)">
+          </ion-searchbar>
+        </ion-item>
+      </ion-card>
       <button ion-button icon-left (click)="scanKey()" class="qrScanner">
         <ion-icon name="qr-scanner" style="margin-left:5px"></ion-icon>
       </button>
     </ion-row>
+
+    <ion-list *ngIf="showKeyList" >
+      <ion-item *ngFor="let ll of llaves$ | async">
+        <ion-row>
+          <ion-col col-3>
+            {{ ll.id }}
+          </ion-col>
+          <ion-col col-3>
+            {{ ll.descripcion }}
+          </ion-col>
+        </ion-row>
+      </ion-item>
+    </ion-list>
 
 
     <ngx-qrcode [qrc-value]="qrUser" *ngIf="userInfo.legajo!=''"></ngx-qrcode>

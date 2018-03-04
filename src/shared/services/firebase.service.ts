@@ -14,17 +14,35 @@ export class FirebaseService {
     registros$: Observable<any[]>;
 
     llavesRef: AngularFirestoreCollection<Llave>;
-    llaves$: Observable<Llave[]>;
+    llaves$: Observable<any[]>;
 
     constructor(private afs: AngularFirestore) {
         console.log('FirebaseService constructor');
     }
 
     getLlavesDisponibles(flag: boolean): Observable<any[]> {
-        this.llavesRef = this.afs.collection('llaves',
-            ref => ref.where('disponible', '==', flag).orderBy('nombre', 'asc'));
-        this.llaves$ = this.llavesRef.valueChanges();
+        this.llavesRef = this.afs.collection('llaves', ref => ref.where('disponible', '==', flag));
+        this.llaves$ = this.llavesRef.snapshotChanges()
+            .map(actions => {
+                return actions.map(action => {
+                    const d = action.payload.doc;
+                    const ll = d.data();
+                    ll.id = d.id;
+                    return ll;
+                }); 
+            });
         return this.llaves$;
+
+        // this.llaves$ = this.llavesRef.valueChanges();
+        // this.llaves$.subscribe(
+        //     ll$=>{
+        //         ll$.forEach(o=> {
+        //             console.log('campos: ', o);
+        //             console.log('id: ', o.id);
+        //         });
+        //         console.log('size: ',ll$.length);
+        //     });
+        // return this.llaves$;
     }
     getRegistrosByFecha(fecha: number, sortName, sortDir): Observable<any[]> {
         // afs.collection('items', ref => {

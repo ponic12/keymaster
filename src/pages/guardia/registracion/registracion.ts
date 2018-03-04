@@ -27,13 +27,14 @@ import 'rxjs/add/operator/map';
   templateUrl: 'registracion.html'
 })
 export class RegistracionPage implements OnInit {
-  llaves$: Observable<Llave[]>;
+  llaves$: Observable<any[]>;
   userInfo:Empleado = { legajo: '', nombre: '', apellido: '', llave: '' };
   qrUser = null;
   iconType = "pm-output";
   operation = "Registro de llave";
   disabledInfo:boolean = false;
   disabledKey:boolean = false;
+  showKeyList:boolean = false;
 
   constructor(
     public navCtrl: NavController,
@@ -53,10 +54,13 @@ export class RegistracionPage implements OnInit {
     // Reset items back to all of the items
     //this.initializeItems();
     let val = ev.target.value;
+    this.showKeyList = (val!=undefined)&&(val.length>0);
+
     if (val && val.trim() != '') {
-      this.llaves$.subscribe(o=>{
-        o.filter((item) => {
-        var keyname = item['nombre'].toLowerCase();
+      this.llaves$.subscribe(ll$=>{
+        ll$.filter(
+          (item) => {
+        var keyname = item['id'].toLowerCase();
         var res = (keyname.indexOf(val.toLowerCase()) > -1);
         return res;
         })
