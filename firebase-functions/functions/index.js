@@ -28,14 +28,14 @@ exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(
         if (oldVal) { // DEVOLUCION
             console.log('reg update (Devolucion): ', newVal);
             var r = llaveDisponible(newVal.llave, true);
-            var c = copyToHistorico(newVal);
-            var p = sendMessageToUser(newVal, "Se ha devuelto la llave " + newVal.llave, "devolucion");
+            var p = sendMessageToUser(newVal.emp_dev, "Se ha devuelto la llave " + newVal.llave, "devolucion");
+            var c = copyToHistorico(newVal,rid);
             var z = removeRegistro(newVal,rid);
         }
         else {  // REGISTRO  
             console.log('reg add (Registro): ', newVal);
             var r = llaveDisponible(newVal.llave, false);
-            var x = sendMessageToUser(newVal, "Se ha registrado la llave " + newVal.llave, "registro");
+            var x = sendMessageToUser(newVal.emp_reg, "Se ha registrado la llave " + newVal.llave, "registro");
         }
     }
     return true;
@@ -48,7 +48,6 @@ function llaveDisponible(llave, flag) {
     var ref = fs.collection('llaves').doc(llave);
     ref.get().then(doc => {
         var ll = doc.data();
-        console.log('ll: ', ll);
         ll.disponible = flag;
         ref.set(ll).then(c => console.log('Llave disponible:', flag));
     })
@@ -57,8 +56,8 @@ function llaveDisponible(llave, flag) {
         });
     return ref;
 }
-function sendMessageToUser(val, body, type) {
-    var target = "/topics/" + val.emp_dev;
+function sendMessageToUser(emp, body, type) {
+    var target = "/topics/" + emp;
     var msg = {
         to: target,
         priority: 'high',
@@ -97,16 +96,21 @@ function sendMessageToUser(val, body, type) {
             console.log('HTTP Error: ' + response.statusCode + ' - ' + response.statusMessage + '\n' + body);
         }
         else {
-            console.log('Push OK to : ', msg.to);
+            console.log('Push OK to : ', target);
         }
     });
     return res;
 }
-function copyToHistorico(val){
-    var refHist = fs.collection('historico').doc(val.id).set(val)
+function copyToHistorico(val,rid){
+    console.log('copy to historico: ', val);
+    console.log('registro ID: ', rid);
+    
+    var refHist = fs.collection('historico').doc(rid)
+    .set(val)
     .then(c => console.log('Registro copiado a Historico'));
 
-    var refReg = fs.collection('registro').doc(val.id).delete()
+    var refReg = fs.collection('registros').doc(rid)
+    .delete()
     .then(c => console.log('Registro borrado'));
     return refReg;
 }
