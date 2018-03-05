@@ -28,6 +28,9 @@ import 'rxjs/add/operator/map';
 })
 export class RegistracionPage implements OnInit {
   llaves$: Observable<any[]>;
+  llavesLst = Array<Llave>();
+  llavesBase = Array<Llave>();
+
   userInfo:Empleado = { legajo: '', nombre: '', apellido: '', llave: '' };
   qrUser = null;
   iconType = "pm-output";
@@ -48,24 +51,28 @@ export class RegistracionPage implements OnInit {
   ngOnInit() {
     console.log('RegistracionPage init');
     this.llaves$ = this.fs.getLlavesDisponibles(true);
+    this.llaves$.subscribe(o=>{
+      this.llavesLst = o;
+      this.llavesBase = o;
+    });
   }
 
   onInput(ev: any) {
     // Reset items back to all of the items
-    //this.initializeItems();
+    this.llavesLst = this.llavesBase;
     let val = ev.target.value;
     this.showKeyList = (val!=undefined)&&(val.length>0);
 
     if (val && val.trim() != '') {
-      this.llaves$.subscribe(ll$=>{
-        ll$.filter(
-          (item) => {
+      this.llavesLst = this.llavesLst.filter((item) => {
         var keyname = item['id'].toLowerCase();
         var res = (keyname.indexOf(val.toLowerCase()) > -1);
         return res;
-        })
-      })
+      });
     }
+    if (this.llavesLst.length == 0)
+      this.appSrv.message('Aviso', 'Esta llave no existe o no esta disponible', 'toast-error');
+    console.log('llavesLst: ', this.llavesLst);
   }
   onCancel(ev:any){
     this.userInfo.llave = '';

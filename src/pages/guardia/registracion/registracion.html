@@ -39,16 +39,15 @@
       </button>
     </ion-row>
 
-    <ion-list *ngIf="showKeyList" >
-      <ion-item *ngFor="let ll of llaves$ | async">
-        <ion-row>
-          <ion-col col-3>
-            {{ ll.id }}
-          </ion-col>
-          <ion-col col-3>
-            {{ ll.descripcion }}
-          </ion-col>
-        </ion-row>
+    <ion-list *ngIf="showList">
+        <ion-item *ngFor="let cli of clientsTmp | async" (click)="setClient(cli)">
+          {{ cli.fullName }}
+        </ion-item>
+      </ion-list>  
+
+    <ion-list *ngIf="showKeyList" class="searcherList">
+      <ion-item *ngFor="let ll of llavesLst">
+            {{ ll.id }} - {{ ll.descripcion }}
       </ion-item>
     </ion-list>
 

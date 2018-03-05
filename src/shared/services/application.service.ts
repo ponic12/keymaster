@@ -23,9 +23,12 @@ export class ApplicationService {
      * @param  {string} message text to display
      * @returns void
      */
-    message(type: string, message: string): void {
+    message(type: string, message: string, css?: string): void {
+        var cl = '';
+        if (css) cl = css;
         let toast = this.toastCtrl.create({
             message,
+            cssClass:cl,
             duration: 2000,
             position: 'bottom'
         });

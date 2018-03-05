@@ -36,6 +36,34 @@
     margin-left: -5px;
 }
 
+.toast-success {
+> div{
+        background-color:green!important;
+    }
+}
+
+.toast-error {
+> div{
+        background-color:red!important;
+    }
+}
+
+.toastError {
+    background: red;
+    color:white;
+}
+.toastWarning {
+    background: orange;
+    color:white;
+}
+.toastNotify {
+    background: black;
+    color:white;
+}
+
+
+
+
 
 .qrId {
     text-align: center;
