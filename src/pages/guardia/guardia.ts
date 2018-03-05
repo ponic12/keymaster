@@ -3,6 +3,7 @@ import { NavController, Platform, IonicPage } from 'ionic-angular';
 
 import { RegistracionPage } from './registracion/registracion';
 import { ListadoPage } from './listado/listado';
+import { HistoricoPage } from './historico/historico';
 
 @IonicPage()
 @Component({
@@ -10,8 +11,9 @@ import { ListadoPage } from './listado/listado';
   templateUrl: 'guardia.html'
 })
 export class GuardiaPage implements OnInit {
-  tabs1 = ListadoPage;
-  tabs2 = RegistracionPage;
+  tabs1 = RegistracionPage;
+  tabs2 = ListadoPage;
+  tabs3 = HistoricoPage;
 
   constructor() {
     console.log('GuardiaPage constructor');

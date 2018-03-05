@@ -28,14 +28,14 @@ exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(
         if (oldVal) { // DEVOLUCION
             console.log('reg update (Devolucion): ', newVal);
             var r = llaveDisponible(newVal.llave, true);
-            var p = sendMessageToUser(newVal.emp_dev, "Se ha devuelto la llave " + newVal.llave, "devolucion");
+            var p = sendMessageToUser(newVal.emp_dev, newVal.llave, "Se ha devuelto la llave " + newVal.llave, "devolucion");
             var c = copyToHistorico(newVal,rid);
             var z = removeRegistro(newVal,rid);
         }
         else {  // REGISTRO  
             console.log('reg add (Registro): ', newVal);
             var r = llaveDisponible(newVal.llave, false);
-            var x = sendMessageToUser(newVal.emp_reg, "Se ha registrado la llave " + newVal.llave, "registro");
+            var x = sendMessageToUser(newVal.emp_reg, newVal.llave,  "Se ha registrado la llave " + newVal.llave, "registro");
         }
     }
     return true;
@@ -56,7 +56,25 @@ function llaveDisponible(llave, flag) {
         });
     return ref;
 }
-function sendMessageToUser(emp, body, type) {
+function copyToHistorico(val,rid){
+    console.log('copy to historico: ', val);
+    console.log('registro ID: ', rid);
+    
+    var refHist = fs.collection('historico').doc(rid)
+    .set(val)
+    .then(c => console.log('Registro copiado a Historico'));
+
+    var refReg = fs.collection('registros').doc(rid)
+    .delete()
+    .then(c => console.log('Registro borrado'));
+    return refReg;
+}
+function removeRegistro(val, rid){
+    var ref = fs.collection('registros').doc(rid);
+    ref.delete();
+    return ref;
+}
+function sendMessageToUser(emp, llave, body, type) {
     var target = "/topics/" + emp;
     var msg = {
         to: target,
@@ -76,7 +94,7 @@ function sendMessageToUser(emp, body, type) {
             click_action: "FCM_PLUGIN_ACTIVITY",
             sound: "default"
         },
-        data: { type: type }
+        data: { type: type, llave: llave }
     };
     //proxy: proxyCfg.url,
     var res = request({
@@ -100,23 +118,5 @@ function sendMessageToUser(emp, body, type) {
         }
     });
     return res;
-}
-function copyToHistorico(val,rid){
-    console.log('copy to historico: ', val);
-    console.log('registro ID: ', rid);
-    
-    var refHist = fs.collection('historico').doc(rid)
-    .set(val)
-    .then(c => console.log('Registro copiado a Historico'));
-
-    var refReg = fs.collection('registros').doc(rid)
-    .delete()
-    .then(c => console.log('Registro borrado'));
-    return refReg;
-}
-function removeRegistro(val, rid){
-    var ref = fs.collection('registros').doc(rid);
-    ref.delete();
-    return ref;
 }
 

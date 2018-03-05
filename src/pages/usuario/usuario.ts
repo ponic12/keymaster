@@ -1,4 +1,5 @@
 import { Component, OnInit, NgZone } from '@angular/core';
+import { NavController, NavParams } from 'ionic-angular';
 import { Platform, AlertController, IonicPage } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ApplicationService } from '../../shared/services/application.service';
@@ -16,8 +17,10 @@ export class UsuarioPage implements OnInit {
   userInfo = { legajo: "U506713", nombre: "Pablo", apellido: "Massad", llave: "" };
   qrUser = null;
   networkStatus:boolean;
+  push:any;
 
   constructor(
+    private navParams: NavParams, 
     private barcodeScanner: BarcodeScanner,
     private appSrv: ApplicationService,
     private globalSrv: GlobalService,
@@ -27,6 +30,10 @@ export class UsuarioPage implements OnInit {
     private zone:NgZone
   ) {
     console.log('UsuarioPage constructor');
+    this.push = navParams.get('llave');
+    if (this.push){
+      this.userInfo.llave = this.push;
+    }
   }
   ngOnInit() {
     console.log('UsuarioPage init');

@@ -77,25 +77,13 @@ export class LoginPage implements OnInit {
     }
   }
   private evalNotification(data) {
-    if (data.type == "PruebaLinea") {
-      if (data.wasTapped) {
-        //this.navCtrl.push(LineaPage, data.content);
-      }
-      else {
-        let alert = {
-          type: "alert", content: {
-            fecha: new Date(),
-            alerta: data.type
-          }
-        };
-        //this.globalSrv.changeAlert(alert);
-      }
-    }
     if (data.type == "registro") {
       this.appSrv.message('Aviso', 'Se ha registrado la llave '+ data.llave);
+      this.navCtrl.push('UsuarioPage', data);
     }
     if (data.type == "devolucion") {
       this.appSrv.message('Aviso', 'Se ha devuelto la llave '+ data.llave);
+      this.navCtrl.push('UsuarioPage', data);
     }
   }
 }
