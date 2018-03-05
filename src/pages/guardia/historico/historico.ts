@@ -10,8 +10,8 @@ import { Observable } from 'rxjs/Observable';
 import 'rxjs/add/operator/map';
 
 @Component({
-  selector: 'page-listado',
-  templateUrl: 'listado.html'
+  selector: 'page-historico',
+  templateUrl: 'historico.html'
 })
 export class HistoricoPage implements OnInit {
   registros$: Observable<Registro[]>;

@@ -24,12 +24,12 @@ export class ApplicationService {
      * @returns void
      */
     message(type: string, message: string, css?: string): void {
-        var cl = '';
+        var cl = 'toast-success';
         if (css) cl = css;
         let toast = this.toastCtrl.create({
             message,
             cssClass:cl,
-            duration: 2000,
+            duration: 3000,
             position: 'bottom'
         });
         toast.present();

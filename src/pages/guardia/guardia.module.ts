@@ -8,8 +8,12 @@ import { GuardiaService } from './guardia.service';
 import { GuardiaPage } from './guardia';
 
 import { RegistracionPage } from './registracion/registracion';
+
 import { ListadoPage } from './listado/listado';
 import { FilterReg } from './listado/filterReg.pipe';
+
+import { HistoricoPage } from './historico/historico';
+import { FilterHist } from './historico/filterHist.pipe';
 
 @NgModule({
   imports: [
@@ -20,11 +24,14 @@ import { FilterReg } from './listado/filterReg.pipe';
     GuardiaPage,
     RegistracionPage,
     ListadoPage,
-    FilterReg
+    FilterReg,
+    HistoricoPage,
+    FilterHist
   ],
   entryComponents: [
     RegistracionPage,
-    ListadoPage
+    ListadoPage,
+    HistoricoPage
   ],
   providers: [
     BarcodeScanner,
