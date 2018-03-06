@@ -12,6 +12,7 @@ import 'rxjs/add/operator/map';
 export class FirebaseService {
     registrosRef: AngularFirestoreCollection<Registro>;
     registros$: Observable<any[]>;
+    reg: AngularFirestoreDocument<Registro>;
 
     llavesRef: AngularFirestoreCollection<Llave>;
     llaves$: Observable<any[]>;
@@ -29,7 +30,7 @@ export class FirebaseService {
                     const ll = d.data();
                     ll.id = d.id;
                     return ll;
-                }); 
+                });
             });
         return this.llaves$;
     }
@@ -93,22 +94,12 @@ export class FirebaseService {
         return p;
     }
     unregister(emp: Empleado): Promise<any> {
-        var p:Promise<any>;
-        this.getRegistroByLlave(emp.llave)
-            .subscribe(d => console.log(d));
-            // .map(actions => {
-            //     return actions.map(action => {
-            //         const d = action.payload.doc;
-            //         const reg = d.data();
-            //         reg.id = d.id;
-            //         reg.emp_dev = emp.legajo;
-            //         reg.hora_dev = new Date().getTime();
-            //         //var u = this.afs.doc<any>('registros/' + reg.id);
-            //         var x = reg.update(Object.assign({}, reg));
-            //         return x;
-            //     }); 
-            // });
-        return p;
+        var reg = this.afs.collection<any>('registros').doc(emp.idReg)
+            .set({
+                emp_dev: emp.legajo,
+                hora_dev: new Date().getTime()
+            });
+        return reg;
     }
     transfer(o: Empleado, t: Empleado): Promise<any> {
         var p = this.unregister(o)

@@ -5,6 +5,7 @@ admin.initializeApp({
     databaseURL: "https://keymaster-c4ee3.firebaseio.com"
   });
 
-const db = admin.firestore();
+const fs = admin.firestore();
 
-db.collection('llaves').doc('1111111111').set({descripcion:'Mesquita', disponible:true});
+var ref = fs.collection('registros').doc('34KzE0Gv7KvEIeOWMDNq');//.set({descripcion:'Mesquita', disponible:true});
+ref.get().then(o=>console.log(o));

@@ -4,5 +4,6 @@ export class Empleado {
   apellido?: string;
   mail?: string;
   llave?: string;
+  idReg?:string;
 }
 

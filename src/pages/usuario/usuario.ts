@@ -17,7 +17,6 @@ export class UsuarioPage implements OnInit {
   userInfo = { legajo: "U506713", nombre: "Nicola", apellido: "Tesla", llave: "" };
   qrUser = null;
   networkStatus:boolean;
-  push:any;
 
   constructor(
     private navParams: NavParams, 
@@ -30,10 +29,9 @@ export class UsuarioPage implements OnInit {
     private zone:NgZone
   ) {
     console.log('UsuarioPage constructor');
-    this.push = navParams.get('llave');
-    if (this.push){
-      this.userInfo.llave = this.push;
-    }
+    if (navParams.get('tipo') == "registro")
+      this.userInfo.llave = navParams.get('llave');
+
   }
   ngOnInit() {
     console.log('UsuarioPage init');

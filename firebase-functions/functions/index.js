@@ -31,14 +31,27 @@ exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(
         if (oldVal) { // DEVOLUCION
             console.log('reg update (Devolucion): ', newVal);
             var r = llaveDisponible(newVal.llave, true);
-            var p = sendMessageToUser(newVal.emp_dev, newVal.llave, "Se ha devuelto la llave " + newVal.llave, "devolucion");
+            var msg = {
+                emp: newVal.emp_dev,
+                llave: newVal.llave,
+                texto: "Se ha devuelto la llave " + newVal.llave,
+                tipo:"devolucion"
+            };
+            var p = sendMessageToUser(msg);
             var c = copyToHistorico(newVal,rid);
             var z = removeRegistro(newVal,rid);
         }
         else {  // REGISTRO  
             console.log('reg add (Registro): ', newVal);
             var r = llaveDisponible(newVal.llave, false);
-            var x = sendMessageToUser(newVal.emp_reg, newVal.llave,  "Se ha registrado la llave " + newVal.llave, "registro");
+            var msg = {
+                id:newVal.id,
+                emp: newVal.emp_reg,
+                llave: newVal.llave,
+                texto: "Se ha registrado la llave " + newVal.llave,
+                tipo:"registro"
+            };
+            var x = sendMessageToUser(msg);
         }
     }
     return true;
@@ -77,9 +90,9 @@ function removeRegistro(val, rid){
     ref.delete();
     return ref;
 }
-function sendMessageToUser(emp, llave, body, type) {
-    var target = "/topics/" + emp;
-    var msg = {
+function sendMessageToUser(msg) {
+    var target = "/topics/" + msg.emp;
+    var payload = {
         to: target,
         priority: 'high',
         // collapseKey :'',
@@ -90,14 +103,14 @@ function sendMessageToUser(emp, llave, body, type) {
         timeToLive: 10,
         notification: {
             title: "KeyMaster",
-            body: body,
+            body: msg.texto,
             color: "#ffff00",
             icon: "default",
             //tag: "text",
             click_action: "FCM_PLUGIN_ACTIVITY",
             sound: "default"
         },
-        data: { type: type, llave: llave }
+        data: { type: msg.tipo, llave: msg.llave, idReg: msg.id }
     };
     //proxy: proxyCfg.url,
     var res = request({
@@ -107,7 +120,7 @@ function sendMessageToUser(emp, llave, body, type) {
             'Content-Type': ' application/json',
             'Authorization': 'key=AAAA0_fvtU8:APA91bEH30LTl_1GLw5KtugEb9OJxDvnwWaR0Yrs4aQGCpFFgUu2LqHha1RmJ1DOrW2ufNgYco1ftiT2YyE9vUgQJEf4d_7lRIznkxcXXoBAUEwDuY1sTWXOUiqcdfuXfkMRwK-yN0w5'
         },
-        body: JSON.stringify(msg)
+        body: JSON.stringify(payload)
     }, 
     function (error, response, body) {
         if (error) {
