@@ -118,6 +118,10 @@ export class RegistracionPage implements OnInit {
   onKeyChange(e) {
     this.qrUser = JSON.stringify(this.userInfo);
   }
+  selectKey(ll){
+    this.userInfo.llave = ll.id;
+    this.showKeyList = false;
+  }
   callServer() {
     var vm = this;
     if (this.iconType == "pm-output"){

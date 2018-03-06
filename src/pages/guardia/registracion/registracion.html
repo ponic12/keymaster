@@ -46,7 +46,7 @@
       </ion-list>  
 
     <ion-list *ngIf="showKeyList" class="searcherList">
-      <ion-item *ngFor="let ll of llavesLst">
+      <ion-item *ngFor="let ll of llavesLst" (click)="selectKey(ll)">
             {{ ll.id }} - {{ ll.descripcion }}
       </ion-item>
     </ion-list>

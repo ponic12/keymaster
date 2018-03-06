@@ -7,6 +7,4 @@ admin.initializeApp({
 
 const db = admin.firestore();
 
-db.collection('llaves').doc('1111111111').set({
-    nombre:'555', descripcion:'Mesquita', disponible:true
-});
+db.collection('llaves').doc('1111111111').set({descripcion:'Mesquita', disponible:true});

@@ -14,7 +14,7 @@ import { Registro } from '../../shared/entities/registro';
 })
 export class UsuarioPage implements OnInit {
   reg: Registro;
-  userInfo = { legajo: "U506713", nombre: "Pablo", apellido: "Massad", llave: "" };
+  userInfo = { legajo: "U506713", nombre: "Nicola", apellido: "Tesla", llave: "" };
   qrUser = null;
   networkStatus:boolean;
   push:any;

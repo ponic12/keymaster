@@ -4,9 +4,29 @@ page-usuario {
 //     background: radial-gradient(#def 0%, #8ebbd0 92%);
 // }
 
+    .qrUser {
+        position: absolute;
+        top: 15px;
+        right: 7%;
+    }
+
+
+
+    .qrcode img{
+        width: 100px;
+        float: right;
+        box-shadow: 1px 1px 4px #868686;
+    }
+
+    .campoIds {
+        font-weight: bold;
+        width: 70px;
+        float: left;
+    }
     .padInfo{
-        width: 80%;
+        width: 90%;
         margin: auto; 
+        margin-top: 10px;
     }
 
     .btnAction {

@@ -32,17 +32,6 @@ export class FirebaseService {
                 }); 
             });
         return this.llaves$;
-
-        // this.llaves$ = this.llavesRef.valueChanges();
-        // this.llaves$.subscribe(
-        //     ll$=>{
-        //         ll$.forEach(o=> {
-        //             console.log('campos: ', o);
-        //             console.log('id: ', o.id);
-        //         });
-        //         console.log('size: ',ll$.length);
-        //     });
-        // return this.llaves$;
     }
     getRegistrosByFecha(fecha: number, sortName, sortDir): Observable<any[]> {
         // afs.collection('items', ref => {
@@ -104,19 +93,21 @@ export class FirebaseService {
         return p;
     }
     unregister(emp: Empleado): Promise<any> {
-        var regRef = this.getRegistroByLlave(emp.llave);
-        var reg = new Registro();
-        reg.emp_dev = emp.legajo;
-        reg.hora_dev = new Date().getTime();
-
-        var u = this.afs.doc<any>('registros/' + reg.id);
-        var p = u.update(Object.assign({}, reg))
-            .then(function () {
-                console.log("Update reg ok");
-            })
-            .catch(function (error) {
-                console.error("Error Updating reg: ", error);
-            });
+        var p:Promise<any>;
+        this.getRegistroByLlave(emp.llave)
+            .subscribe(d => console.log(d));
+            // .map(actions => {
+            //     return actions.map(action => {
+            //         const d = action.payload.doc;
+            //         const reg = d.data();
+            //         reg.id = d.id;
+            //         reg.emp_dev = emp.legajo;
+            //         reg.hora_dev = new Date().getTime();
+            //         //var u = this.afs.doc<any>('registros/' + reg.id);
+            //         var x = reg.update(Object.assign({}, reg));
+            //         return x;
+            //     }); 
+            // });
         return p;
     }
     transfer(o: Empleado, t: Empleado): Promise<any> {
@@ -126,14 +117,4 @@ export class FirebaseService {
             })
         return p;
     }
-
-    // deleteRegistro(o):void {
-    //     this.registrosRef.doc(o.id).delete()
-    //     .then(function() {
-    //         console.log("Delete reg ok");
-    //     })
-    //     .catch(function(error) {
-    //         console.error("Error Deleting reg: ", error);
-    //     });
-    // }
 }
