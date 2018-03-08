@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { ApplicationService } from '../../shared/services/application.service';
 import { GlobalService } from '../../shared/services/global.service';
+import { Empleado } from '../../shared/entities/empleado';
 
 declare const FCMPlugin: any;
 
@@ -12,6 +13,7 @@ declare const FCMPlugin: any;
 export class LoginPage implements OnInit {
   username: string;
   password: string;
+  userInfo: Empleado;
 
   constructor(
     public navCtrl: NavController,
@@ -23,11 +25,12 @@ export class LoginPage implements OnInit {
   }
   ngOnInit() {
     console.log('LoginPage init');
+    this.userInfo = this.globalSrv.user;
   }
   ///////////////////////////////////////////////////////////////////  
   login(): void {
-    var usr = this.username.toUpperCase();
-    switch (usr) {
+    this.userInfo.legajo = this.username.toUpperCase();
+    switch (this.userInfo.legajo) {
       case "U000000":
         this.navCtrl.push('GuardiaPage', {});
         break;
@@ -38,8 +41,8 @@ export class LoginPage implements OnInit {
         this.navCtrl.push('UsuarioPage', {});
         break;
     }
-    this.globalSrv.userId = usr;
-    this.initFCM(usr);
+    this.globalSrv.user = this.userInfo = this.globalSrv.user;;
+    this.initFCM(this.userInfo.legajo);
   }
   private initFCM(usr) {
     if (((this.platform.is('mobileweb') == true) || (this.platform.is('core') == true)) == false) {

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';;
 import { BehaviorSubject } from 'rxjs/BehaviorSubject';
-
+import { Empleado } from '../entities/empleado';
 import { StorageService } from './storage.service';
 
 @Injectable()
@@ -16,14 +16,8 @@ export class GlobalService {
         {reg:'09:15',dev:'12:20', key:'202', legajo:'u5242321' }
       ];
 
-    userId:string = '';
-      
-    private usr = new BehaviorSubject<any>({});
-    user = this.usr.asObservable();
-    changeUser(msg: any) {
-        this.usr.next(msg);
-        this.storageSrv.set('user', msg);
-    }
+
+    user:Empleado;
 
     // ALERTS
     private alCounter = new BehaviorSubject<any>(0);
@@ -48,7 +42,7 @@ export class GlobalService {
 
     constructor( private storageSrv: StorageService) { 
         console.log("GlobalService constructor ");
-        this.storageSrv.get('user').then(x => this.usr.next(x) );
+        this.user = { legajo: "U506713", nombre: "Nicola", apellido: "Tesla", mail:"", llave: "", idReg:"" };
 
         this.storageSrv.get('alertsCounter').then(x =>  (x)? this.alCounter.next(x): this.alCounter.next(0));
         this.storageSrv.get('alertsList').then(x =>  (x)? this.alList.next(x): this.alList.next([]));

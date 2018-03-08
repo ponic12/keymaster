@@ -6,6 +6,11 @@ import { ApplicationService } from '../../shared/services/application.service';
 import { FirebaseService } from '../../shared/services/firebase.service';
 import { GlobalService } from '../../shared/services/global.service';
 import { Registro } from '../../shared/entities/registro';
+import { Empleado } from '../../shared/entities/empleado';
+
+import { Observable } from 'rxjs/Observable';
+import 'rxjs/add/operator/map';
+
 
 @IonicPage()
 @Component({
@@ -14,9 +19,10 @@ import { Registro } from '../../shared/entities/registro';
 })
 export class UsuarioPage implements OnInit {
   reg: Registro;
-  userInfo = { legajo: "U506713", nombre: "Nicola", apellido: "Tesla", llave: "" };
+  userInfo:Empleado;
   qrUser = null;
   networkStatus:boolean;
+  registros$: Observable<Registro[]>;
 
   constructor(
     private navParams: NavParams, 
@@ -29,13 +35,29 @@ export class UsuarioPage implements OnInit {
     private zone:NgZone
   ) {
     console.log('UsuarioPage constructor');
-    if (navParams.get('tipo') == "registro")
-      this.userInfo.llave = navParams.get('llave');
+    // if (navParams.get('type') == "registro")
+    //   this.userInfo.llave = navParams.get('llave');
 
   }
   ngOnInit() {
     console.log('UsuarioPage init');
-    this.userInfo.legajo = this.globalSrv.userId;
+    this.userInfo = this.globalSrv.user;
+
+    this.registros$ = this.fs.getRegistroByUser(this.userInfo.legajo);
+    this.registros$.subscribe(o=>{
+      if (o.length>0){
+        var ll = o[0].llave;
+        if (ll != ''){
+          this.userInfo.llave = ll;
+          this.userInfo.idReg = o[0].id;
+          this.qrUser = JSON.stringify(this.userInfo);  
+          this.appSrv.message('Aviso', "Se ha registrado la llave "+ll);
+          }
+        else{
+          this.appSrv.message('Aviso', "Se ha devuelto la llave "+ll);        
+        }
+      }
+    });
     this.qrUser = JSON.stringify(this.userInfo);
     this.globalSrv.networkStatus.subscribe(x => {
       this.zone.run(() => {

@@ -88,7 +88,6 @@ export class RegistracionPage implements OnInit {
           this.disabledKey = true;
           this.iconType = "pm-input";
           this.operation = "Devolucion llave";
-          this.userInfo.llave = obj.llave;
           this.qrUser = JSON.stringify(this.userInfo);
         }
         else {
@@ -150,6 +149,7 @@ export class RegistracionPage implements OnInit {
   private blankRec() {
     this.disabledInfo = false;
     this.disabledKey = false;
+    this.userInfo = { legajo: '', nombre: '', apellido: '', llave: '' };
   }
 }
 

@@ -12,6 +12,7 @@ import 'rxjs/add/operator/map';
 export class FirebaseService {
     registrosRef: AngularFirestoreCollection<Registro>;
     registros$: Observable<any[]>;
+    reg$: Observable<Registro>;
     reg: AngularFirestoreDocument<Registro>;
 
     llavesRef: AngularFirestoreCollection<Llave>;
@@ -69,18 +70,18 @@ export class FirebaseService {
             });
         return this.registros$;
     }
-    getRegistroByEmp(emp: string, llave: string): Observable<any[]> {
+    getRegistroByUser(leg: string): Observable<Registro[]> {
         this.registrosRef = this.afs.collection<any>('registros',
-            ref => ref.where('emp_reg', '==', emp).where('llave', '==', llave));
+            ref => ref.where('emp_reg', '==', leg).limit(1));
         this.registros$ = this.registrosRef.snapshotChanges()
-            .map(actions => {
-                return actions.map(action => {
-                    const d = action.payload.doc;
-                    const item = d.data();
-                    item.id = d.id;
-                    return item;
-                });
+        .map(actions => {
+            return actions.map(a => {
+              const data = a.payload.doc.data() as Registro;
+              const id = a.payload.doc.id;
+              return { id, ...data };
             });
+          });
+        console.log(this.registros$);
         return this.registros$;
     }
 
@@ -95,7 +96,7 @@ export class FirebaseService {
     }
     unregister(emp: Empleado): Promise<any> {
         var reg = this.afs.collection<any>('registros').doc(emp.idReg)
-            .set({
+            .update({
                 emp_dev: emp.legajo,
                 hora_dev: new Date().getTime()
             });

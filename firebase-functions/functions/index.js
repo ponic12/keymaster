@@ -6,10 +6,10 @@ const admin = require('firebase-admin');
 admin.initializeApp(functions.config().firebase);
 
 // Create and Deploy Your First Cloud Functions
-https://firebase.google.com/docs/functions/write-firebase-functions
-exports.helloWorld = functions.https.onRequest((request, response) => {
- response.send("Hello from Firebase!");
-});
+// https://firebase.google.com/docs/functions/write-firebase-functions
+// exports.helloWorld = functions.https.onRequest((request, response) => {
+//  response.send("Hello from Firebase!");
+// });
 
 
 
@@ -31,27 +31,26 @@ exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(
         if (oldVal) { // DEVOLUCION
             console.log('reg update (Devolucion): ', newVal);
             var r = llaveDisponible(newVal.llave, true);
-            var msg = {
-                emp: newVal.emp_dev,
-                llave: newVal.llave,
-                texto: "Se ha devuelto la llave " + newVal.llave,
-                tipo:"devolucion"
-            };
-            var p = sendMessageToUser(msg);
-            var c = copyToHistorico(newVal,rid);
-            var z = removeRegistro(newVal,rid);
+            var c = moveToHistorico(newVal,rid);
+            // var msg = {
+            //     emp: newVal.emp_dev,
+            //     llave: newVal.llave,
+            //     texto: "Se ha devuelto la llave " + newVal.llave,
+            //     tipo:"devolucion"
+            // };
+            // var p = sendMessageToUser(msg);
         }
         else {  // REGISTRO  
             console.log('reg add (Registro): ', newVal);
             var r = llaveDisponible(newVal.llave, false);
-            var msg = {
-                id:newVal.id,
-                emp: newVal.emp_reg,
-                llave: newVal.llave,
-                texto: "Se ha registrado la llave " + newVal.llave,
-                tipo:"registro"
-            };
-            var x = sendMessageToUser(msg);
+            // var msg = {
+            //     id:newVal.id,
+            //     emp: newVal.emp_reg,
+            //     llave: newVal.llave,
+            //     texto: "Se ha registrado la llave " + newVal.llave,
+            //     tipo:"registro"
+            // };
+            // var x = sendMessageToUser(msg);
         }
     }
     return true;
@@ -72,24 +71,21 @@ function llaveDisponible(llave, flag) {
         });
     return ref;
 }
-function copyToHistorico(val,rid){
+function moveToHistorico(val,rid){
     console.log('copy to historico: ', val);
     console.log('registro ID: ', rid);
     
-    var refHist = fs.collection('historico').doc(rid)
-    .set(val)
-    .then(c => console.log('Registro copiado a Historico'));
+    var refHist = fs.collection('historico').doc(rid).set(val)
+    .then(c => console.log('Registro copiado a Historico'))
+    .catch(err => console.log('Error copy to historico:", err'));
 
-    var refReg = fs.collection('registros').doc(rid)
-    .delete()
-    .then(c => console.log('Registro borrado'));
+    var refReg = fs.collection('registros').doc(rid).delete()
+    .then(c => console.log('Registro borrado'))
+    .catch(err => console.log('Error deleting reg: ', err));
+
     return refReg;
 }
-function removeRegistro(val, rid){
-    var ref = fs.collection('registros').doc(rid);
-    ref.delete();
-    return ref;
-}
+
 function sendMessageToUser(msg) {
     var target = "/topics/" + msg.emp;
     var payload = {
