@@ -3,6 +3,7 @@ import { Platform } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { Network } from '@ionic-native/network';
+
 import { GlobalService } from '../shared/services/global.service';
 import { LoginPage } from '../pages/login/login';
 
