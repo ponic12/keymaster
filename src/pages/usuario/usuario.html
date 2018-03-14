@@ -1,35 +1,35 @@
 <ion-content class="backKM">
   <ion-card class="padInfo">
-      <ion-row>
-        <ion-item>
-          <span class="campoIds">Legajo: </span>
-          <span>{{userInfo.legajo}}</span>
-        </ion-item>
-      </ion-row>
-      <ion-row>
-        <ion-item>
-          <span class="campoIds">Nombre: </span>
-          <span>{{userInfo.nombre}}</span>
-        </ion-item>
-      </ion-row>
-      <ion-row>
-        <ion-item>
-          <span class="campoIds">Apellido: </span>
-          <span>{{userInfo.apellido}}</span>
-        </ion-item>
-      </ion-row>
-      <ion-row>
-        <ion-item>
-          <span class="campoIds">DNI: </span>
-          <span>20005205</span>
-        </ion-item>
-      </ion-row>
-      <ion-row>
-        <ion-item>
-          <span class="campoIds">Mail: </span>
-          <span>pepe.massad@teco.com.ar</span>
-        </ion-item>
-      </ion-row>
+    <ion-row>
+      <ion-item>
+        <span class="campoIds">Legajo: </span>
+        <span>{{userInfo.legajo}}</span>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <span class="campoIds">Nombre: </span>
+        <span>{{userInfo.nombre}}</span>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <span class="campoIds">Apellido: </span>
+        <span>{{userInfo.apellido}}</span>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <span class="campoIds">DNI: </span>
+        <span>20005205</span>
+      </ion-item>
+    </ion-row>
+    <ion-row>
+      <ion-item>
+        <span class="campoIds">Mail: </span>
+        <span>pepe.massad@teco.com.ar</span>
+      </ion-item>
+    </ion-row>
     <ngx-qrcode [qrc-value]="qrUser" class="qrUser"></ngx-qrcode>
   </ion-card>
 
@@ -42,22 +42,22 @@
   </ion-row>
 
   <div *ngIf="(userInfo.llave != '')" style="margin-top:5px">
-      <ion-row>
-          <ion-col col-3></ion-col>
-          <ion-col col-6>
-            <div class="glass">
-              <ion-icon class="keyIcon" name="key"></ion-icon>
-              <div class="keyText">{{userInfo.llave}}</div>
-            </div>
-          </ion-col>
-          <ion-col col-3>
-          </ion-col>
-        </ion-row>
-        <div style="text-align: center">
-          <button ion-button icon-left (click)="transferir()" class="btnAction">
-            <ion-icon name="redo"></ion-icon>Transferir llave
-          </button>
+    <ion-row>
+      <ion-col col-3></ion-col>
+      <ion-col col-6>
+        <div class="glass">
+          <ion-icon class="keyIcon" name="key"></ion-icon>
+          <div class="keyText">{{userInfo.llave}}</div>
         </div>
+      </ion-col>
+      <ion-col col-3>
+      </ion-col>
+    </ion-row>
+    <div style="text-align: center">
+      <button ion-button icon-left (click)="transferir()" class="btnAction">
+        <ion-icon name="redo"></ion-icon>Transferir llave
+      </button>
+    </div>
   </div>
 
 
