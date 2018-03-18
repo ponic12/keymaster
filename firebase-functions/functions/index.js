@@ -49,58 +49,20 @@ exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(
 });
 
 
-
-exports.testEvent = functions.firestore.document('/test/{id}').onWrite(event => {
-    const id = event.params.id;
-    var info = event.data;
-    
-    var newVal = {};
-    try {
-        newVal = info.data();
-        console.log('newVal: ', newVal);
-    }
-    catch (e) {
-        console.log('reg delete: ', oldVal);
-    }
-    if (newVal) {
-        var oldDoc = event.data.previous;
-        try{
-            var oldVal = oldDoc.data();
-            if (oldVal) { // UPDATE
-                console.log('updating old: ', oldVal);
-            }
-            else {  // INSERT  
-                console.log('item add: ', newVal);
-                var d = new Date(newVal.datetime);
-                var yyyy = d.getFullYear();
-                var mm = d.getMonth();
-                var dd = d.getDay();
-                var dstr = yyyy && mm && dd;
-    
-                var key = newVal.user + '_' + dstr;
-                console.log('key: ', key);
-            }            
-        }
-        catch(err){
-            console.log('OLD VAL: ',err);
-        }
-    }
-});
-
-
 //////////////////////////////////
 // Private functions
 //////////////////////////////////
 function llaveDisponible(llave, flag) {
     var ref = fs.collection('llaves').doc(llave);
-    ref.get().then(doc => {
+    ref.get()
+    .then(doc => {
         var ll = doc.data();
         ll.disponible = flag;
         ref.set(ll).then(c => console.log('Llave disponible:', flag));
     })
-        .catch(err => {
-            console.log('Error: updating key state:', err);
-        });
+    .catch(err => {
+        console.log('Error: updating key state:', err);
+    });
     return ref;
 }
 function moveToHistorico(val,rid){
