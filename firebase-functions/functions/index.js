@@ -5,14 +5,6 @@ const admin = require('firebase-admin');
 
 admin.initializeApp(functions.config().firebase);
 
-// Create and Deploy Your First Cloud Functions
-// https://firebase.google.com/docs/functions/write-firebase-functions
-// exports.helloWorld = functions.https.onRequest((request, response) => {
-//  response.send("Hello from Firebase!");
-// });
-
-
-
 const fs = admin.firestore();
 
 exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(event => {
@@ -56,6 +48,46 @@ exports.registroEvent = functions.firestore.document('registros/{rid}').onWrite(
     return true;
 });
 
+
+
+exports.testEvent = functions.firestore.document('/test/{id}').onWrite(event => {
+    const id = event.params.id;
+    var info = event.data;
+    
+    var newVal = {};
+    try {
+        newVal = info.data();
+        console.log('newVal: ', newVal);
+    }
+    catch (e) {
+        console.log('reg delete: ', oldVal);
+    }
+    if (newVal) {
+        var oldDoc = event.data.previous;
+        try{
+            var oldVal = oldDoc.data();
+            if (oldVal) { // UPDATE
+                console.log('updating old: ', oldVal);
+            }
+            else {  // INSERT  
+                console.log('item add: ', newVal);
+                var d = new Date(newVal.datetime);
+                var yyyy = d.getFullYear();
+                var mm = d.getMonth();
+                var dd = d.getDay();
+                var dstr = yyyy && mm && dd;
+    
+                var key = newVal.user + '_' + dstr;
+                console.log('key: ', key);
+            }            
+        }
+        catch(err){
+            console.log('OLD VAL: ',err);
+        }
+    }
+});
+
+
 //////////////////////////////////
 // Private functions
 //////////////////////////////////
@@ -85,7 +117,6 @@ function moveToHistorico(val,rid){
 
     return refReg;
 }
-
 function sendMessageToUser(msg) {
     var target = "/topics/" + msg.emp;
     var payload = {
