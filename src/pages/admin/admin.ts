@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Platform, IonicPage } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 
 import { InventarioPage } from './inventario/inventario';
 import { EstadisticasPage } from './estadisticas/estadisticas';

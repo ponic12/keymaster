@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Platform, IonicPage } from 'ionic-angular';
+import { IonicPage } from 'ionic-angular';
 
 import { RegistracionPage } from './registracion/registracion';
 import { ListadoPage } from './listado/listado';

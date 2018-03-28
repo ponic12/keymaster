@@ -1,5 +1,4 @@
 import { Component, OnInit, NgZone } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
 import { Platform, AlertController, IonicPage } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ApplicationService } from '../../shared/services/application.service';
@@ -25,7 +24,6 @@ export class UsuarioPage implements OnInit {
   registros$: Observable<Registro[]>;
 
   constructor(
-    private navParams: NavParams, 
     private barcodeScanner: BarcodeScanner,
     private appSrv: ApplicationService,
     private globalSrv: GlobalService,
@@ -35,9 +33,6 @@ export class UsuarioPage implements OnInit {
     private zone:NgZone
   ) {
     console.log('UsuarioPage constructor');
-    // if (navParams.get('type') == "registro")
-    //   this.userInfo.llave = navParams.get('llave');
-
   }
   ngOnInit() {
     console.log('UsuarioPage init');

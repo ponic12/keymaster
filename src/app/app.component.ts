@@ -11,7 +11,7 @@ import { LoginPage } from '../pages/login/login';
 @Component({
   templateUrl: 'app.html'
 })
-export class MyApp implements OnInit{
+export class KeymasterApp implements OnInit{
   title: string = "Key Master";
   version: string = "v1.0";
   networkStatus: boolean;
@@ -25,7 +25,7 @@ export class MyApp implements OnInit{
     public splashScreen: SplashScreen,
     public network:Network,
     private zone: NgZone){
-    console.log('MyApp contructor');
+    console.log('KeymasterApp contructor');
     platform.ready().then(() => {
       statusBar.styleDefault();
       splashScreen.hide();

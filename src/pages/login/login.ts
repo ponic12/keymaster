@@ -16,7 +16,7 @@ export class LoginPage implements OnInit {
   userInfo: Empleado;
 
   constructor(
-    public navCtrl: NavController,
+    private navCtrl: NavController,
     private platform: Platform,
     private globalSrv: GlobalService,
     private appSrv: ApplicationService

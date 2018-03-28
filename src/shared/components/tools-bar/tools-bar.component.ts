@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, NgZone } from '@angular/core';
-import { NavController } from 'ionic-angular';
 import { GlobalService } from '../../services/global.service';
 
 @Component({
@@ -13,7 +12,6 @@ export class ToolsBarComponent implements OnInit {
   networkStatus: boolean;
 
   constructor(
-    private navCtrl: NavController, 
     private globalSrv: GlobalService,
     private zone: NgZone) {
     console.log('ToolsBarComponent constructor');

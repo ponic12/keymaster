@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+
 import { ApplicationService } from '../../../shared/services/application.service';
 import { GlobalService } from '../../../shared/services/global.service';
 import { FirebaseService } from '../../../shared/services/firebase.service';
@@ -22,7 +22,6 @@ export class HistoricoPage implements OnInit {
   private sdLlave:string = 'desc';
 
   constructor(
-    public navCtrl: NavController,
     private globalSrv: GlobalService,
     private fs: FirebaseService) {
     console.log('HistoricoPage constructor');

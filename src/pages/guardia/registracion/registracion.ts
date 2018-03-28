@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, Platform } from 'ionic-angular';
+import { Platform } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
 import { ApplicationService } from '../../../shared/services/application.service';
 import { FirebaseService } from '../../../shared/services/firebase.service';
@@ -40,7 +40,6 @@ export class RegistracionPage implements OnInit {
   showKeyList:boolean = false;
 
   constructor(
-    public navCtrl: NavController,
     private appSrv: ApplicationService,
     private barcodeScanner: BarcodeScanner,
     private platform: Platform,

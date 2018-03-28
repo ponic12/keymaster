@@ -13,7 +13,7 @@ import { Camera } from '@ionic-native/camera';
 import { Flashlight } from '@ionic-native/flashlight';
 import { Geolocation } from '@ionic-native/geolocation';
 
-import { MyApp } from './app.component';
+import { KeymasterApp } from './app.component';
 import { LoginPage } from '../pages/login/login';
 
 import { SharedModule } from '../shared/shared.module';
@@ -33,7 +33,7 @@ export const firebaseConfig ={
 
 @NgModule({
   declarations: [
-    MyApp,
+    KeymasterApp,
     LoginPage
   ],
   imports: [
@@ -42,13 +42,13 @@ export const firebaseConfig ={
     AdminModule,
     BrowserModule,
     SharedModule.forRoot(),
-    IonicModule.forRoot(MyApp),
+    IonicModule.forRoot(KeymasterApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFirestoreModule // AngularFirestoreModule.enablePersistence()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
-    MyApp,
+    KeymasterApp,
     LoginPage
   ],
   providers: [
