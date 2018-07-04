@@ -6,8 +6,7 @@ import 'rxjs/add/observable/throw'
 import 'rxjs/add/operator/catch';
 import 'rxjs/add/operator/do';
 
-import { ApplicationService } from './application.service';
-import { GlobalService } from './global.service';
+import { ApplicationService, GlobalService } from 'fwk-services';
 
 @Injectable()
 export class HttpIntercept implements HttpInterceptor {

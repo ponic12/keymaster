@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { ApplicationService } from '../../../shared/services/application.service';
-import { GlobalService } from '../../../shared/services/global.service';
+import { ApplicationService, GlobalService } from 'fwk-services';
 import { FirebaseService } from '../../../shared/services/firebase.service';
 import { Registro } from '../../../shared/entities/registro';
 import { Llave } from '../../../shared/entities/llave';

@@ -1,9 +1,8 @@
 import { Component, OnInit, NgZone } from '@angular/core';
 import { Platform, AlertController, IonicPage } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { ApplicationService } from '../../shared/services/application.service';
+import { ApplicationService, GlobalService } from 'fwk-services';
 import { FirebaseService } from '../../shared/services/firebase.service';
-import { GlobalService } from '../../shared/services/global.service';
 import { Registro } from '../../shared/entities/registro';
 import { Empleado } from '../../shared/entities/empleado';
 

@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
-import { ApplicationService } from '../../shared/services/application.service';
-import { GlobalService } from '../../shared/services/global.service';
+import { ApplicationService, GlobalService } from 'fwk-services';
 import { Empleado } from '../../shared/entities/empleado';
 
 declare const FCMPlugin: any;
