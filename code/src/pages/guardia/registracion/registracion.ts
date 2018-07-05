@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Platform } from 'ionic-angular';
 import { BarcodeScanner } from '@ionic-native/barcode-scanner';
-import { ApplicationService } from '../../../shared/services/application.service';
+import { ApplicationService } from 'fwk-services';
 import { FirebaseService } from '../../../shared/services/firebase.service';
 import { Empleado } from '../../../shared/entities/empleado';
 import { Llave } from '../../../shared/entities/llave';

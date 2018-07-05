@@ -35,7 +35,7 @@ export class UsuarioPage implements OnInit {
   }
   ngOnInit() {
     console.log('UsuarioPage init');
-    this.userInfo = this.globalSrv.user;
+    this.userInfo = this.globalSrv.getVar('user');
 
     this.registros$ = this.fs.getRegistroByUser(this.userInfo.legajo);
     this.registros$.subscribe(o=>{
@@ -53,12 +53,12 @@ export class UsuarioPage implements OnInit {
       }
     });
     this.qrUser = JSON.stringify(this.userInfo);
-    this.globalSrv.networkStatus.subscribe(x => {
-      this.zone.run(() => {
-        this.networkStatus = x;
-      });
-      console.log('networkStatus: ', this.networkStatus);
-    });
+   //  this.globalSrv.networkStatus.subscribe(x => {
+   //    this.zone.run(() => {
+   //      this.networkStatus = x;
+   //    });
+   //    console.log('networkStatus: ', this.networkStatus);
+   //  });
   }
   transfer(){
     if (this.platform.is('cordova')) {

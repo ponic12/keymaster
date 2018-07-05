@@ -32,28 +32,28 @@ export class KeymasterApp implements OnInit{
     });
   }
   ngOnInit(){
-    this.globalSrv.networkStatus.subscribe(x => {
-      this.zone.run(() => {
-        this.networkStatus = x;
-      });
-      console.log('networkStatus: ', this.networkStatus);
-    });
+   //  this.globalSrv.networkStatus.subscribe(x => {
+   //    this.zone.run(() => {
+   //      this.networkStatus = x;
+   //    });
+   //    console.log('networkStatus: ', this.networkStatus);
+   //  });
   }
 
   changeNetworkStatus() {
-    this.globalSrv.changeNetworkStatus(!this.networkStatus);
+    //this.globalSrv.changeNetworkStatus(!this.networkStatus);
   }
 
   private initNetwork(){
     let disconnectSubscription = this.network.onDisconnect().subscribe(() => {
       console.log('network disconnected!');
-      this.globalSrv.changeNetworkStatus(false);
+      //this.globalSrv.changeNetworkStatus(false);
     });
     //disconnectSubscription.unsubscribe();
     
     let connectSubscription = this.network.onConnect().subscribe(() => {
       console.log('network connected!');
-      this.globalSrv.changeNetworkStatus(true);
+      //this.globalSrv.changeNetworkStatus(true);
     });
     //connectSubscription.unsubscribe();
   }

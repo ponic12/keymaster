@@ -13,35 +13,36 @@ import { TelNumDirective } from './directives/tel-num.directive';
 import { FwkServicesModule, ApplicationService, GlobalService } from 'fwk-services'
 
 @NgModule({
-  imports: [
-    IonicStorageModule.forRoot()
-  ],
-  declarations: [
-    HighlightDirective, 
-    TelNumDirective],
-  exports: [ 
-    HighlightDirective, 
-    TelNumDirective ],
-  providers:[
-    ApplicationService,
-    StorageService,
-    GlobalService,
-    FirebaseService
-  ]
+   imports: [
+      FwkServicesModule,
+      IonicStorageModule.forRoot()
+   ],
+   declarations: [
+      HighlightDirective,
+      TelNumDirective],
+   exports: [
+      HighlightDirective,
+      TelNumDirective],
+   providers: [
+      ApplicationService,
+      StorageService,
+      GlobalService,
+      FirebaseService
+   ]
 })
 export class SharedModule {
-  static forRoot(): ModuleWithProviders {
-    return {
-      ngModule: SharedModule,
-      providers: [
-        ApplicationService, 
-        StorageService, 
-        GlobalService,
-        {
-          provide: HTTP_INTERCEPTORS,
-          useClass: HttpIntercept,
-          multi: true,
-        }]
-    };
-  }
+   static forRoot(): ModuleWithProviders {
+      return {
+         ngModule: SharedModule,
+         providers: [
+            ApplicationService,
+            StorageService,
+            GlobalService,
+            {
+               provide: HTTP_INTERCEPTORS,
+               useClass: HttpIntercept,
+               multi: true,
+            }]
+      };
+   }
 }

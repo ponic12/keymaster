@@ -24,7 +24,7 @@ export class LoginPage implements OnInit {
   }
   ngOnInit() {
     console.log('LoginPage init');
-    this.userInfo = this.globalSrv.user;
+    this.userInfo = this.globalSrv.getVar('user');
   }
   ///////////////////////////////////////////////////////////////////  
   login(): void {
@@ -40,7 +40,7 @@ export class LoginPage implements OnInit {
         this.navCtrl.push('UsuarioPage', {});
         break;
     }
-    this.globalSrv.user = this.userInfo = this.globalSrv.user;;
+    this.globalSrv.save('user', this.userInfo);
     this.initFCM(this.userInfo.legajo);
   }
   private initFCM(usr) {

@@ -2,8 +2,6 @@ import * as functions from 'firebase-functions'
 import * as admin from 'firebase-admin'
 import * as request from 'request'
 
-//import * as moment from 'moment'
-
 admin.initializeApp(functions.config().firebase)
 
 export const registroEvent = functions.database.ref('registros/{rid}').onWrite((event, ctx) => {
