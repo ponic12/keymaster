@@ -18,7 +18,7 @@ export class KeymasterApp implements OnInit {
    progressStatus:string=""
 
    title: string = "Key Master";
-   version: string = "v1.0";
+   version: string = "v1.2";
    networkStatus: boolean;
 
    rootPage: any = LoginPage;
@@ -79,7 +79,7 @@ export class KeymasterApp implements OnInit {
          splashScreen.hide()
       }).catch(err => {
          console.error(err)
-         this.appSrv.basicAlert(err.message, 'Error!')
+         this.appSrv.basicAlert(err, 'Error!')
       })
    }
    ngOnInit() {

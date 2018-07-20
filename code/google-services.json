@@ -8,9 +8,9 @@
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:910397781327:android:2c1624651d889189",
+        "mobilesdk_app_id": "1:910397781327:android:a4c5a4b233cbadbf",
         "android_client_info": {
-          "package_name": "teco.keymaster"
+          "package_name": "com.teco.keymaster"
         }
       },
       "oauth_client": [
