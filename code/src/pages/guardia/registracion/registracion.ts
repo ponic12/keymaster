@@ -70,7 +70,7 @@ export class RegistracionPage implements OnInit {
       });
     }
     if (this.llavesLst.length == 0)
-      this.appSrv.message('Aviso', 'Esta llave no existe o no esta disponible', 'toast-error');
+      this.appSrv.message('Esta llave no existe o no esta disponible', 'toast-error');
     console.log('llavesLst: ', this.llavesLst);
   }
   onCancel(ev:any){
@@ -96,7 +96,7 @@ export class RegistracionPage implements OnInit {
         this.qrUser = JSON.stringify(this.userInfo);
       })
     } else {
-      this.appSrv.message('Error', 'QR no disponible en web');
+      this.appSrv.message('QR no disponible en web');
       console.log('Scan of QR not supported in browser....');
     }
   }
@@ -109,7 +109,7 @@ export class RegistracionPage implements OnInit {
         this.disabledKey = true;
       })
     } else {
-      this.appSrv.message('Error', 'QR no disponible en web');
+      this.appSrv.message('QR no disponible en web');
       console.log('Scan of QR not supported in browser....');
     }
   }
@@ -126,7 +126,7 @@ export class RegistracionPage implements OnInit {
       this.fs.register(this.userInfo)
       .then(function (docRef) {
         console.log("New reg ID: ", docRef.id);
-        vm.appSrv.message('Informacion', 'Llave ' + vm.userInfo.llave + ' registrada al usuario: ' + vm.userInfo.legajo);
+        vm.appSrv.message('Llave ' + vm.userInfo.llave + ' registrada al usuario: ' + vm.userInfo.legajo);
         vm.blankRec();
       })
       .catch(function (error) {
@@ -136,7 +136,7 @@ export class RegistracionPage implements OnInit {
     else{
       this.fs.unregister(this.userInfo)
       .then(function(){
-        vm.appSrv.message('Informacion', 'Llave ' + vm.userInfo.llave + ' devuelta por el usuario: ' + vm.userInfo.legajo);
+        vm.appSrv.message('Llave ' + vm.userInfo.llave + ' devuelta por el usuario: ' + vm.userInfo.legajo);
         vm.blankRec();    
       })
       .catch(function (error) {

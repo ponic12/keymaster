@@ -45,10 +45,10 @@ export class UsuarioPage implements OnInit {
           this.userInfo.llave = ll;
           this.userInfo.idReg = o[0].id;
           this.qrUser = JSON.stringify(this.userInfo);  
-          this.appSrv.message('Aviso', "Se ha registrado la llave "+ll);
+          this.appSrv.message('Se ha registrado la llave '+ll);
           }
         else{
-          this.appSrv.message('Aviso', "Se ha devuelto la llave "+ll);        
+          this.appSrv.message('Se ha devuelto la llave '+ll);        
         }
       }
     });
@@ -89,10 +89,10 @@ export class UsuarioPage implements OnInit {
           alert.present();         
         }
         else
-          this.appSrv.message('Error', 'No se dectecto codigo QR');
+          this.appSrv.message('No se dectecto codigo QR');
       })
     } else {
-      this.appSrv.message('Error', 'QR no disponible en web');
+      this.appSrv.message('QR no disponible en web');
       console.log('Scan of QR not supported in browser....');
     }    
   }
@@ -111,10 +111,10 @@ export class UsuarioPage implements OnInit {
           this.qrUser = JSON.stringify(this.userInfo);          
         }
         else
-          this.appSrv.message('Error', 'No se dectecto codigo QR');
+          this.appSrv.message('No se dectecto codigo QR');
       })
     } else {
-      this.appSrv.message('Error', 'QR no disponible en web');
+      this.appSrv.message('QR no disponible en web');
       console.log('Scan of QR not supported in browser....');
     }
   }

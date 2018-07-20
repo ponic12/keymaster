@@ -80,11 +80,11 @@ export class LoginPage implements OnInit {
   }
   private evalNotification(data) {
     if (data.type == "registro") {
-      this.appSrv.message('Aviso', 'Se ha registrado la llave '+ data.llave);
+      this.appSrv.message('Se ha registrado la llave '+ data.llave);
       this.navCtrl.push('UsuarioPage', data);
     }
     if (data.type == "devolucion") {
-      this.appSrv.message('Aviso', 'Se ha devuelto la llave '+ data.llave);
+      this.appSrv.message('Se ha devuelto la llave '+ data.llave);
       this.navCtrl.push('UsuarioPage', data);
     }
   }
