@@ -12,7 +12,7 @@ declare const FCMPlugin: any;
 export class LoginPage implements OnInit {
   username: string;
   password: string;
-  userInfo: Empleado;
+  userInfo: Empleado = new Empleado();
 
   constructor(
     private navCtrl: NavController,

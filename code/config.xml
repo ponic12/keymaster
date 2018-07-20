@@ -1,5 +1,5 @@
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="teco.keymaster" version="0.0.1" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
+<widget id="com.teco.keymaster" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:cdv="http://cordova.apache.org/ns/1.0">
     <platform name="android">
         <preference name="CodePushDeploymentKey" value="p_wHG1073ycdRDUg6HCKaZhryLg-36782d21-3e82-4316-9366-3e8515e3da2b" />
         <icon density="ldpi" src="resources/android/icon/drawable-ldpi-icon.png" />
@@ -21,9 +21,9 @@
         <splash density="port-xxhdpi" src="resources/android/splash/drawable-port-xxhdpi-screen.png" />
         <splash density="port-xxxhdpi" src="resources/android/splash/drawable-port-xxxhdpi-screen.png" />
     </platform>
-    <name>keymaster</name>
-    <description>An awesome Ionic/Cordova app.</description>
-    <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
+    <name>Keymaster</name>
+    <description>Key Master Telecom</description>
+    <author email="hi@ionicframework" href="http://ionicframework.com/">Teco Factory Team</author>
     <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />

@@ -1,7 +1,7 @@
 {
-  "name": "keymaster.employee",
-  "version": "0.0.1",
-  "author": "Ionic Framework",
+  "name": "keymaster",
+  "version": "1.0.0",
+  "author": "Teco Factory",
   "homepage": "http://ionicframework.com/",
   "private": true,
   "scripts": {
