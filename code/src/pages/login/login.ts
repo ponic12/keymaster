@@ -1,15 +1,16 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { NavController, Platform } from 'ionic-angular';
 import { ApplicationService, GlobalService } from 'fwk-services';
 import { Empleado } from '../../shared/entities/empleado';
 
 declare const FCMPlugin: any;
 
+@IonicPage()
 @Component({
    selector: 'page-login',
    templateUrl: 'login.html'
 })
-export class LoginPage implements OnInit {
+export class LoginPage implements OnInit, OnDestroy {
    username: string
    password: string
    userInfo: Empleado
@@ -21,6 +22,9 @@ export class LoginPage implements OnInit {
       private appSrv: ApplicationService
    ) {
       console.log('LoginPage constructor');
+   }
+   ngOnDestroy(){
+      console.log('LoginPage destroy');
    }
    ngOnInit() {
       console.log('LoginPage init');

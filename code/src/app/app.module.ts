@@ -13,6 +13,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 
 import { KeymasterApp } from './app.component';
 import { SharedModule } from '../shared/shared.module';
+import { ProgressBarComponent } from '../shared/components/progress-bar/progress-bar'
 
 import 'firebase/storage';
 import { AngularFireModule } from 'angularfire2'
@@ -23,7 +24,8 @@ import { FIREBASE_CONFIG } from '../shared/services/firebase.config'
 
 @NgModule({
    declarations: [
-      KeymasterApp
+      KeymasterApp,
+      ProgressBarComponent
    ],
    imports: [
       BrowserModule,
@@ -34,7 +36,8 @@ import { FIREBASE_CONFIG } from '../shared/services/firebase.config'
    ],
    bootstrap: [IonicApp],
    entryComponents: [
-      KeymasterApp
+      KeymasterApp,
+      ProgressBarComponent
    ],
    providers: [
       CodePush,

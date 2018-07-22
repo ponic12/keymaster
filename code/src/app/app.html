@@ -8,6 +8,7 @@
         </ion-title>
     </ion-navbar>
 </ion-header>
-<progress-bar [progress]="prog" *ngIf="showProgressBar" class="progBar"></progress-bar>
+
+<progress-bar [progress]="prog" class="progBar" *ngIf="showProgressBar"></progress-bar>
 
 <ion-nav [root]="'LoginPage'" #content></ion-nav>

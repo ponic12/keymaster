@@ -15,8 +15,8 @@ import { SharedModule } from '../../shared/shared.module';
    entryComponents: [],
    providers: [ ]
 })
-export class LoginModule {
+export class LoginPageModule {
    constructor() {
-      console.log('LoginModule constructor');
+      console.log('LoginPageModule constructor');
    }
 }

@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy, ViewChild, NgZone } from '@angular/core';
-import { Platform } from 'ionic-angular';
+import { Platform, NavController } from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { CodePush, SyncStatus } from '@ionic-native/code-push'
@@ -7,6 +7,7 @@ import { AngularFirestore } from 'angularfire2/firestore'
 
 import { GlobalService, ApplicationService } from 'fwk-services';
 
+import { CommonModule } from '@angular/common'
 
 @Component({
    templateUrl: 'app.html'
@@ -14,8 +15,8 @@ import { GlobalService, ApplicationService } from 'fwk-services';
 export class KeymasterApp implements OnInit, OnDestroy {
    @ViewChild('content') nav: NavController
 
-   prog:number = 0
-   showProgressBar:boolean = false;
+   prog: number = 0
+   showProgressBar: boolean = false;
 
    title: string = "Key Master";
    version: string = "v1.2";
@@ -32,16 +33,16 @@ export class KeymasterApp implements OnInit, OnDestroy {
       console.log('KeymasterApp contructor');
       this.afs.firestore.settings({ timestampsInSnapshots: true });
       this.afs.firestore.enablePersistence();
-      
+
       this.platform.ready().then(() => {
          console.log('platform ready....')
          setTimeout(() => {
             console.log('starting update validation......')
             this.codePush.sync({}, (progress) => {
-               this.zone.run(()=>{
+               this.zone.run(() => {
                   this.prog = Math.floor(progress.receivedBytes / progress.totalBytes * 100)
                   console.log('progress: ', this.prog)
-               })     
+               })
             }).subscribe(status => {
                switch (status) {
                   case SyncStatus.CHECKING_FOR_UPDATE:
@@ -57,9 +58,9 @@ export class KeymasterApp implements OnInit, OnDestroy {
                      this.appSrv.message('update in progress')
                      break;
                   case SyncStatus.DOWNLOADING_PACKAGE:
-                     console.log('DOWNLOADING_PACKAGE: ', SyncStatus.DOWNLOADING_PACKAGE)                  
+                     console.log('DOWNLOADING_PACKAGE: ', SyncStatus.DOWNLOADING_PACKAGE)
                      this.appSrv.message('downloading package')
-                     this.zone.run(()=>{
+                     this.zone.run(() => {
                         this.showProgressBar = true
                         console.log('showProgressBar: ', this.showProgressBar)
                      })
@@ -109,6 +110,14 @@ export class KeymasterApp implements OnInit, OnDestroy {
       //    });
       //    console.log('networkStatus: ', this.networkStatus);
       //  });
+   }
+
+   logout() {
+      this.globalSrv.get('user').then(u => {
+         u = null
+         this.globalSrv.save('user', u)
+         this.nav.setRoot('LoginPage')
+      });
    }
 }
 
