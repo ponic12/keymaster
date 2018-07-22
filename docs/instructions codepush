@@ -5,7 +5,7 @@ sudo npm install -g code-push-cli
 
 code-push login
 
-code-push app add Keymaster android cordova
+code-push app add teco.keymaster android cordova
 
 <platform name="android">
 <preference name="CodePushDeploymentKey" value="xxxxxxxxxxxxxxxx"/>
@@ -18,4 +18,4 @@ npm install --save @ionic-native/code-push
 ionic build android
 ionic serve
 
-code-push release-cordova Keymaster android -m
+code-push release-cordova teco.keymaster android -m
