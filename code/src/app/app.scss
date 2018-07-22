@@ -16,6 +16,12 @@
 // To declare rules for a specific mode, create a child rule
 // for the .md, .ios, or .wp mode classes. The mode class is
 // automatically applied to the <body> element in the app.
+.progBar{
+   position: absolute;
+   margin-top:60px;
+   width: 100%;
+   z-index: 100;
+}
 
 .backKM {
     background: radial-gradient(#def 0%, #8ebbd0 92%);

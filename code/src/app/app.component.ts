@@ -19,7 +19,7 @@ export class KeymasterApp implements OnInit, OnDestroy {
    showProgressBar: boolean = false;
 
    title: string = "Key Master";
-   version: string = "v1.2";
+   version: string = "v1.0";
 
    constructor(
       private codePush: CodePush,
